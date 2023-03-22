@@ -1,3 +1,5 @@
+#include "esphome.h"
+
 #include "qwiic_twist_encoder.h"
 #include "esphome/core/log.h"
 #include "esphome/core/helpers.h"

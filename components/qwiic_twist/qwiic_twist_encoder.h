@@ -62,7 +62,7 @@ class QwiicTwistEncoder : public sensor::Sensor {
     char i2c_address_ = 0x3F;
 
     TwistEncoderSensorStore store_{};
-    TwistEncoderRestoreMode restore_mode_{ROTARY_ENCODER_RESTORE_DEFAULT_ZERO};
+    TwistEncoderRestoreMode restore_mode_{TWIST_ENCODER_RESTORE_DEFAULT_ZERO};
     bool publish_initial_value_;
     
     CallbackManager<void()> on_clockwise_callback_;
@@ -79,7 +79,7 @@ template<typename... Ts> class TwistEncoderSetValueAction : public Action<Ts...>
   void play(Ts... x) override { this->encoder_->set_value(this->value_.value(x...)); }
 
  protected:
-  QwiicTwist *encoder_;
+  QwiicTwistEncoder *encoder_;
 };
 
 class TwistEncoderClockwiseTrigger : public Trigger<> {
