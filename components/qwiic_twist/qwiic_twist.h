@@ -1,6 +1,6 @@
 #pragma once
 
-#include "esphome.h"
+#include "esphome/core/component.h"
 #include "esphome/components/rgb/rgb_light_output.h"
 
 namespace esphome {
