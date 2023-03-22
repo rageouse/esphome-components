@@ -20,17 +20,9 @@ class QwiicTwist : public light::LightOutput {
       state->current_values_as_rgb(&red, &green, &blue, false);
 
       Wire.beginTransmission(i2c_address_);
-      Wire.write(0x0D); // Red
+      Wire.write(0x0D); // 0x0D = Red; 0x0E = Green; 0x0F = Blue; register auto-increments
       Wire.write(char(red*255));
-      Wire.endTransmission();
-      
-      Wire.beginTransmission(i2c_address_);
-      Wire.write(0x0E); // Green
       Wire.write(char(green*255));
-      Wire.endTransmission();
-      
-      Wire.beginTransmission(i2c_address_);
-      Wire.write(0x0F); // Blue
       Wire.write(char(blue*255));
       Wire.endTransmission();
     }

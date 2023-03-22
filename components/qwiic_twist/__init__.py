@@ -7,6 +7,7 @@ qwiic_twist_ns = cg.esphome_ns.namespace("qwiic_twist")
 QwiicTwist = qwiic_twist_ns.class_("QwiicTwist", light.LightOutput)
 
 DEPENDENCIES = ["light", "i2c"]
+AUTO_LOAD = ["light"]
 
 CONFIG_SCHEMA = (
     cv.Schema(
