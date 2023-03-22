@@ -1,17 +1,20 @@
 #pragma once
 
-#include "esphome/components/rgb/rgb_light_output.h"
+#include "esphome/core/component.h"
+#include "esphome/components/light/light_output.h"
 
 namespace esphome {
 namespace qwiic_twist {
 
-class QwiicTwist : public rgb::RGBLightOutput {
+class QwiicTwist : public light::LightOutput {
 
   public:
-    void set_red(output::FloatOutput *red)     override { ; }
-    void set_green(output::FloatOutput *green) override { ; }
-    void set_blue(output::FloatOutput *blue)   override { ; }
-    
+    light::LightTraits get_traits() override {
+      auto traits = light::LightTraits();
+      traits.set_supported_color_modes({light::ColorMode::RGB});
+      return traits;
+    }
+
     void write_state(light::LightState *state) override {
       float red, green, blue;
       state->current_values_as_rgb(&red, &green, &blue, false);
