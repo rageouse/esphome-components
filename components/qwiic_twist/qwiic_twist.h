@@ -1,7 +1,6 @@
 #pragma once
 
-#include "esphome/core/component.h"
-#include "esphome/components/rgb/rgb_light_output.h"
+#include "esphome.h"
 
 namespace esphome {
 namespace qwiic_twist {
