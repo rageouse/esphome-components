@@ -6,8 +6,7 @@ from esphome.const import CONF_OUTPUT_ID
 qwiic_twist_ns = cg.esphome_ns.namespace("qwiic_twist")
 QwiicTwist = qwiic_twist_ns.class_("QwiicTwist", light.LightOutput)
 
-DEPENDENCIES = ['rgb']
-AUTO_LOAD = ['rgb']
+DEPENDENCIES.append('rgb')
 
 CONFIG_SCHEMA = cv.Schema(
     {
