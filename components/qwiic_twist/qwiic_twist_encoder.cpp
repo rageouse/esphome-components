@@ -16,7 +16,7 @@ void QwiicTwistEncoder::setup() {
   Wire.write(0x07);
   Wire.endTransmission();
   Wire.requestFrom(this->i2c_address_, 2);
-  byte buff[2]
+  byte buff[2];
   Wire.readBytes(buff, 2);
   int16_t initial_value = buff[0] + buff[1] << 8;
 
@@ -44,7 +44,7 @@ void QwiicTwistEncoder::update() {
   Wire.write(0x07);
   Wire.endTransmission();
   Wire.requestFrom(this->i2c_address_, 2);
-  byte buff[2]
+  byte buff[2];
   Wire.readBytes(buff, 2);
   int16_t value = buff[0] + buff[1] << 8;
 
