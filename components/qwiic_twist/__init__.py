@@ -1,16 +1,16 @@
 import esphome.codegen as cg
 import esphome.config_validation as cv
 from esphome.components import light, output
-from esphome.const import CONF_BLUE, CONF_GREEN, CONF_RED, CONF_OUTPUT_ID
+from esphome.const import CONF_OUTPUT_ID
 
 qwiic_twist_ns = cg.esphome_ns.namespace("qwiic_twist")
 QwiicTwist = qwiic_twist_ns.class_("QwiicTwist", light.LightOutput)
 
-CONFIG_SCHEMA = light.RGB_LIGHT_SCHEMA.extend(
+CONFIG_SCHEMA = cv.Schema(
     {
-        cv.GenerateID(CONF_OUTPUT_ID): cv.declare_id(RGBLightOutput),
+        cv.GenerateID(CONF_OUTPUT_ID): cv.declare_id(QwiicTwist),
     }
-)
+).extend(light.RGB_LIGHT_SCHEMA).extend(cv.COMPONENT_SCHEMA)
 
 
 async def to_code(config):
