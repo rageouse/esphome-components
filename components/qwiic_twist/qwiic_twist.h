@@ -1,6 +1,8 @@
 #pragma once
 
 #include "esphome/core/component.h"
+#pragma once
+
 #include "esphome/core/hal.h"
 #include "esphome/core/automation.h"
 #include "esphome/components/sensor/sensor.h"

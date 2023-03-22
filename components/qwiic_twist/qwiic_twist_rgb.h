@@ -1,5 +1,7 @@
 #pragma once
 
+#include "qwiic_twist.h"
+
 #include "esphome/core/component.h"
 #include "esphome/components/light/light_output.h"
 
