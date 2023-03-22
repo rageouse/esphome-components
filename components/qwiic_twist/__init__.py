@@ -6,8 +6,8 @@ from esphome.const import CONF_OUTPUT_ID
 qwiic_twist_ns = cg.esphome_ns.namespace("qwiic_twist")
 QwiicTwist = qwiic_twist_ns.class_("QwiicTwist", cg.PollingComponent)
 
-DEPENDENCIES = ["light", "i2c"]
-AUTO_LOAD = ["light"]
+DEPENDENCIES = ["light", "sensor", "i2c"]
+AUTO_LOAD = ["light", "sensor"]
 
 CONFIG_SCHEMA = (
     cv.Schema(
