@@ -49,8 +49,8 @@ class QwiicTwist : public PollingComponent {
   protected:
     char i2c_address_ = 0x3F;
 
-    QwiicTwistRGB     *twist_rgb_     = new QwiicTwistRGB(parent=this);
-    QwiicTwistEncoder *twist_encoder_ = new QwiicTwistEncoder(parent=this);
+    QwiicTwistRGB     *twist_rgb_     = new QwiicTwistRGB(parent=this, name=this->name+" Light");
+    QwiicTwistEncoder *twist_encoder_ = new QwiicTwistEncoder(parent=this, name=this->name+" Encoder");
 
 };
 
