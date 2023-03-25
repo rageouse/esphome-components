@@ -10,6 +10,9 @@
 namespace esphome {
 namespace qwiic_twist {
 
+class QwiicTwist;
+
+
 class QwiicTwistRGB : public light::LightOutput {
 
   public:

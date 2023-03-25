@@ -1,5 +1,3 @@
-#pragma once
-
 #include "esphome.h"
 #include "qwiic_twist.h"
 

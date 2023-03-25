@@ -31,6 +31,9 @@ struct TwistEncoderSensorStore {
   bool rotation_events_overflow{false};
 };
 
+class QwiicTwist;
+
+
 class QwiicTwistEncoder : public sensor::Sensor {
 
   public:
