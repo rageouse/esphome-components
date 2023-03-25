@@ -35,9 +35,9 @@ struct TwistEncoderSensorStore {
 class QwiicTwistEncoder : public sensor::Sensor {
 
   public:
-    QwiicTwistEncoder(QwiicTwist *parent, const std::string &name):
-        parent_{parent},
-        Sensor(name)
+    QwiicTwistEncoder(QwiicTwist *parent, const std::string &name)
+        : Sensor{ name }
+        , parent_{ parent }
         {}
 
     void set_value(int16_t value);

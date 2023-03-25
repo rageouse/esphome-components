@@ -13,9 +13,9 @@ class QwiicTwistRGB : public light::LightOutput {
 
   public:
     
-    QwiicTwistRGB(QwiicTwist *parent, const std::string &name):
-        parent_{parent},
-        LightOutput(name)
+    QwiicTwistRGB(QwiicTwist *parent, const std::string &name)
+        : LightOutput{ name }
+        , parent_{ parent }
         {}
     
     light::LightTraits get_traits() override {
