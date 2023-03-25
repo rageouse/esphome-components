@@ -43,7 +43,7 @@ class QwiicTwistEncoder : public sensor::Sensor {
         {}
 
     void set_value(int16_t value);
-    void set_restore_mode(RotaryEncoderRestoreMode restore_mode);
+    void set_restore_mode(TwistEncoderRestoreMode restore_mode);
     void set_publish_initial_value(bool publish_initial_value);
 
     void setup();

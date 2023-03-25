@@ -40,10 +40,10 @@ class QwiicTwist : public PollingComponent {
     }
 
     void add_on_clockwise_callback(std::function<void()> callback) {
-      this->twist_encoder_->add_on_clockwise_callback.add(callback);
+      this->twist_encoder_->add_on_clockwise_callback.add(std::move(callback));
     }
     void add_on_anticlockwise_callback(std::function<void()> callback) {
-      this->twist_encoder_->add_on_anticlockwise_callback.add(callback);
+      this->twist_encoder_->add_on_anticlockwise_callback.add(std::move(callback));
     }
 
   
