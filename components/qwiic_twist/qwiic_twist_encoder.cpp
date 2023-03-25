@@ -1,4 +1,7 @@
+#pragma once
+
 #include "esphome.h"
+#include "qwiic_twist.h"
 
 #include "qwiic_twist_encoder.h"
 #include "esphome/core/log.h"
@@ -59,4 +62,8 @@ void QwiicTwistEncoder::set_restore_mode(TwistEncoderRestoreMode restore_mode) {
 void QwiicTwistEncoder::set_publish_initial_value(bool publish_initial_value) {
   this->publish_initial_value_ = publish_initial_value;
 }
+
+
+} // namespace qwiic-twist
+} // namespace esphome
 

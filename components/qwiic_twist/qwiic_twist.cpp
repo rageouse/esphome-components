@@ -1,3 +1,5 @@
+#pragma once
+
 #include "qwiic_twist.h"
 
 namespace esphome {

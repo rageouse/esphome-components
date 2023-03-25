@@ -1,7 +1,6 @@
 #pragma once
 
 #include "esphome/core/component.h"
-#pragma once
 
 #include "esphome/core/hal.h"
 #include "esphome/core/automation.h"
@@ -33,7 +32,7 @@ class QwiicTwist : public PollingComponent {
     void set_value(int16_t value) {
       this->twist_encoder_->set_value(value);
     }
-    void set_restore_mode(RotaryEncoderRestoreMode restore_mode) {
+    void set_restore_mode(TwistEncoderRestoreMode restore_mode) {
       this->twist_encoder_->set_restore_mode(restore_mode);
     }
     void set_publish_initial_value(bool publish_initial_value) {
@@ -51,8 +50,8 @@ class QwiicTwist : public PollingComponent {
   protected:
     char i2c_address_ = 0x3F;
 
-    QwiicTwistRGB     *twist_rgb_     = new QwiicTwistRGB(parent=this, name=this->name+" Light");
-    QwiicTwistEncoder *twist_encoder_ = new QwiicTwistEncoder(parent=this, name=this->name+" Encoder");
+    QwiicTwistRGB     *twist_rgb_     = new QwiicTwistRGB(parent=this, name=this->name_+" Light");
+    QwiicTwistEncoder *twist_encoder_ = new QwiicTwistEncoder(parent=this, name=this->name_+" Encoder");
 
 };
 
