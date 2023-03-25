@@ -46,8 +46,6 @@ class QwiicTwistEncoder : public sensor::Sensor {
     void setup();
     void update();
 
-    float get_setup_priority() const override;
-
     void add_on_clockwise_callback(std::function<void()> callback) {
       this->on_clockwise_callback_.add(std::move(callback));
     }

@@ -19,7 +19,7 @@ static const char *const TAG = "qwiic_twist";
 class QwiicTwist : public PollingComponent {
 
   public:
-    QwiicTwist(): PollingComponent(50) {}
+    QwiicTwist(): PollingComponent{ 50 } {}
     
     void setup() override;
     void update() override;
@@ -50,8 +50,8 @@ class QwiicTwist : public PollingComponent {
   protected:
     char i2c_address_ = 0x3F;
 
-    QwiicTwistRGB     *twist_rgb_     = new QwiicTwistRGB(parent=this, name=this->name_+" Light");
-    QwiicTwistEncoder *twist_encoder_ = new QwiicTwistEncoder(parent=this, name=this->name_+" Encoder");
+    QwiicTwistRGB     *twist_rgb_     = new QwiicTwistRGB(this, "Twist Light");
+    QwiicTwistEncoder *twist_encoder_ = new QwiicTwistEncoder(this, "Twist Encoder");
 
 };
 
