@@ -20,7 +20,7 @@ static const char *const TAG = "qwiic_twist";
 class QwiicTwist : public Component {
 
   public:
-    QwiicTwist(): PollingComponent{ 50 } {}
+    QwiicTwist() {}
     
     void setup() override;
 

@@ -4,12 +4,8 @@ namespace esphome {
 namespace qwiic_twist {
 
 void QwiicTwist::setup() {
-  this->twist_rgb_->call_setup();
+  this->twist_rgb_->setup();
   this->twist_encoder_->call_setup();
-}
-
-void QwiicTwist::update() {
-  this->twist_encoder_->update();
 }
 
 
