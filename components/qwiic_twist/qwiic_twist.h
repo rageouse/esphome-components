@@ -25,6 +25,14 @@ class QwiicTwist : public Component {
     void setup() override;
 
     float get_setup_priority() const override;
+    
+    void set_twist_rgb(QwiicTwistRGB *twist_rgb) {
+      this.twist_rgb_ = twist_rgb;
+    }
+    
+    void set_twist_encoder(QwiicTwistEncoder *twist_encoder) {
+      this.twist_encoder_ = twist_encoder;
+    }
 
     // RGB LIGHT
 
@@ -44,8 +52,8 @@ class QwiicTwist : public Component {
   protected:
     char i2c_address_ = 0x3F;
 
-    QwiicTwistRGB     *twist_rgb_     = new QwiicTwistRGB(this);
-    QwiicTwistEncoder *twist_encoder_ = new QwiicTwistEncoder(this);
+    QwiicTwistRGB     *twist_rgb_     { nullptr };
+    QwiicTwistEncoder *twist_encoder_ { nullptr };
 
 };
 

@@ -5,13 +5,8 @@ from esphome.const import CONF_COMPONENT_ID, CONF_LIGHT_ID, CONF_SENSOR_ID
 
 qwiic_twist_ns = cg.esphome_ns.namespace("qwiic_twist")
 QwiicTwist        = qwiic_twist_ns.class_("QwiicTwist", cg.Component)
-
-QwiicTwistRGB     = QwiicTwist.twist_rgb_
-QwiicTwistEncoder = QwiicTwist.twist_encoder_
-
-
-# QwiicTwistRGB     = qwiic_twist_ns.class_("QwiicTwistRGB", light.LightOutput, cg.Component)
-# QwiicTwistEncoder = qwiic_twist_ns.class_("QwiicTwistEncoder", sensor.Sensor, cg.PollingComponent)
+QwiicTwistRGB     = qwiic_twist_ns.class_("QwiicTwistRGB", light.LightOutput, cg.Component)
+QwiicTwistEncoder = qwiic_twist_ns.class_("QwiicTwistEncoder", sensor.Sensor, cg.PollingComponent)
 
 DEPENDENCIES = ["light", "sensor", "i2c"]
 AUTO_LOAD = ["light", "sensor"]
@@ -30,12 +25,16 @@ CONFIG_SCHEMA = (
 )
 
 async def to_code(config):
-    var = cg.new_Pvariable(config[CONF_COMPONENT_ID])
-    await cg.register_component(var, config)
+    qwiic_twist = cg.new_Pvariable(config[CONF_COMPONENT_ID])
+    await cg.register_component(qwiic_twist, config)
     
-    var = cg.new_Pvariable(config[CONF_LIGHT_ID])
-    await light.register_light(var, config)
+    qwiic_twist_rgb = cg.new_Pvariable(config[CONF_LIGHT_ID])
+    await cg.register_component(qwiic_twist_rgb, config)
+    await light.register_light(qwiic_twist_rgb, config)
+    cg.add(qwiic_twist_rgb.set_parent(qwiic_twist))
 
-    var = cg.new_Pvariable(config[CONF_SENSOR_ID])
-    await sensor.register_sensor(var, config)
+    qwiic_twist_encoder = cg.new_Pvariable(config[CONF_SENSOR_ID])
+    await cg.register_component(qwiic_twist_encoder, config)
+    await sensor.register_sensor(qwiic_twist_encoder, config)
+    cg.add(qwiic_twist_encoder.set_parent(qwiic_twist))
 

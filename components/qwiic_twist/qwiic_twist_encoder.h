@@ -41,6 +41,10 @@ class QwiicTwistEncoder : public sensor::Sensor, public PollingComponent {
         : PollingComponent{ 50 }
         , parent_{ parent }
         {}
+    
+    QwiicTwistEncoder()
+        : QwiicTwistEncoder{ nullptr }
+        {}
 
     void set_value(int16_t value);
     void set_restore_mode(TwistEncoderRestoreMode restore_mode);
@@ -56,9 +60,13 @@ class QwiicTwistEncoder : public sensor::Sensor, public PollingComponent {
       this->on_anticlockwise_callback_.add(std::move(callback));
     }
 
+    void set_parent(QwiicTwist *parent) {
+      this.parent_ = parent;
+    }
+
   
   protected:
-    QwiicTwist *parent_{nullptr};
+    QwiicTwist *parent_ { nullptr };
     char i2c_address_ = 0x3F;
 
     TwistEncoderSensorStore store_{};

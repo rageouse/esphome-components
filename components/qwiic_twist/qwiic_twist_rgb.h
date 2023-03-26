@@ -21,6 +21,10 @@ class QwiicTwistRGB : public light::LightOutput, public Component {
         : parent_{ parent }
         {}
     
+    QwiicTwistRGB()
+        : QwiicTwistRGB { nullptr }
+        {}
+    
     light::LightTraits get_traits() override {
       auto traits = light::LightTraits();
       traits.set_supported_color_modes({light::ColorMode::RGB});
@@ -39,8 +43,12 @@ class QwiicTwistRGB : public light::LightOutput, public Component {
       Wire.endTransmission();
     }
     
+    void set_parent(QwiicTwist *parent) {
+      this.parent_ = parent;
+    }
+    
   protected:
-    QwiicTwist *parent_;
+    QwiicTwist *parent_ { nullptr };
     char i2c_address_ = 0x3F;
 
 };
