@@ -11,12 +11,16 @@ QwiicTwistEncoder = qwiic_twist_ns.class_("QwiicTwistEncoder", sensor.Sensor, cg
 DEPENDENCIES = ["light", "sensor", "i2c"]
 AUTO_LOAD = ["light", "sensor"]
 
+CONF_QWIIC_TWIST_ID = 'qwiic_twist_id'
+CONF_QWIIC_TWIST_RGB_ID = 'qwiic_twist_rgb_id'
+CONF_QWIIC_TWIST_ENCODER_ID = 'qwiic_twist_encoder_id'
+
 CONFIG_SCHEMA = (
     cv.Schema(
         {
-            cv.GenerateID(CONF_COMPONENT_ID): cv.declare_id(QwiicTwist),
-            cv.GenerateID(CONF_LIGHT_ID):     cv.declare_id(QwiicTwistRGB),
-            cv.GenerateID(CONF_SENSOR_ID):    cv.declare_id(QwiicTwistEncoder),
+            cv.GenerateID(CONF_QWIIC_TWIST_ID):          cv.declare_id(QwiicTwist),
+            cv.GenerateID(CONF_QWIIC_TWIST_RGB_ID):      cv.declare_id(QwiicTwistRGB),
+            cv.GenerateID(CONF_QWIIC_TWIST_ENCODER_ID):  cv.declare_id(QwiicTwistEncoder),
         }
     )
     .extend(cv.COMPONENT_SCHEMA)
@@ -24,23 +28,16 @@ CONFIG_SCHEMA = (
     .extend(sensor.SENSOR_SCHEMA)
 )
 
-async def register_light(var, config):
-    if not CORE.has_id(config[CONF_ID]):
-        var = cg.new_Pvariable(config[CONF_ID], var)
-    cg.add(cg.App.register_light(var))
-    await cg.register_component(var, config)
-    await setup_light_core_(var, output_var, config)
-
 async def to_code(config):
-    qwiic_twist = cg.new_Pvariable(config[CONF_COMPONENT_ID])
+    qwiic_twist = cg.new_Pvariable(config[CONF_QWIIC_TWIST_ID])
     await cg.register_component(qwiic_twist, config)
     
-    qwiic_twist_rgb = cg.new_Pvariable(config[CONF_LIGHT_ID])
+    qwiic_twist_rgb = cg.new_Pvariable(config[CONF_QWIIC_TWIST_RGB_ID])
     await cg.register_component(qwiic_twist_rgb, config)
     await light.register_light(qwiic_twist_rgb, config)
     cg.add(qwiic_twist_rgb.set_parent(qwiic_twist))
 
-    qwiic_twist_encoder = cg.new_Pvariable(config[CONF_SENSOR_ID])
+    qwiic_twist_encoder = cg.new_Pvariable(config[CONF_QWIIC_TWIST_ENCODER_ID])
     await cg.register_component(qwiic_twist_encoder, config)
     await sensor.register_sensor(qwiic_twist_encoder, config)
     cg.add(qwiic_twist_encoder.set_parent(qwiic_twist))
