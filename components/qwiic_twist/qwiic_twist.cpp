@@ -40,7 +40,7 @@ i2c::ErrorCode QwiicTwist::write32(uint8_t reg, uint32_t value) {
 }
 
 i2c::ErrorCode QwiicTwist::readbuf(uint8_t reg, uint8_t *buf, uint8_t len) {
-  i2c::ErrorCode err = this->write(reg, 1);
+  i2c::ErrorCode err = this->write(&reg, 1);
   if (err != i2c::ERROR_OK)
     return err;
   return this->read(buf, len);
