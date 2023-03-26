@@ -3,11 +3,12 @@
 namespace esphome {
 namespace qwiic_twist {
 
-void QwiicTwist::setup() override {
-  this->twist_encoder_->setup();
+void QwiicTwist::setup() {
+  this->twist_rgb_->call_setup();
+  this->twist_encoder_->call_setup();
 }
 
-void QwiicTwist::update() override {
+void QwiicTwist::update() {
   this->twist_encoder_->update();
 }
 

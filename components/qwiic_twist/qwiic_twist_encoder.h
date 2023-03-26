@@ -34,11 +34,11 @@ struct TwistEncoderSensorStore {
 class QwiicTwist;
 
 
-class QwiicTwistEncoder : public sensor::Sensor {
+class QwiicTwistEncoder : public sensor::Sensor, public PollingComponent {
 
   public:
-    QwiicTwistEncoder(QwiicTwist *parent, const std::string &name)
-        : Sensor{ name }
+    QwiicTwistEncoder(QwiicTwist *parent)
+        : PollingComponent{ 50 }
         , parent_{ parent }
         {}
 
@@ -46,8 +46,8 @@ class QwiicTwistEncoder : public sensor::Sensor {
     void set_restore_mode(TwistEncoderRestoreMode restore_mode);
     void set_publish_initial_value(bool publish_initial_value);
 
-    void setup();
-    void update();
+    void setup() override;
+    void update() override;
 
     void add_on_clockwise_callback(std::function<void()> callback) {
       this->on_clockwise_callback_.add(std::move(callback));

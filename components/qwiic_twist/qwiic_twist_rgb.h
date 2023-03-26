@@ -13,13 +13,12 @@ namespace qwiic_twist {
 class QwiicTwist;
 
 
-class QwiicTwistRGB : public light::LightOutput {
+class QwiicTwistRGB : public light::LightOutput, public Component {
 
   public:
     
-    QwiicTwistRGB(QwiicTwist *parent, const std::string &name)
-        : LightOutput{ name }
-        , parent_{ parent }
+    QwiicTwistRGB(QwiicTwist *parent)
+        : parent_{ parent }
         {}
     
     light::LightTraits get_traits() override {
@@ -41,7 +40,7 @@ class QwiicTwistRGB : public light::LightOutput {
     }
     
   protected:
-    QwiicTwist *parent_{nullptr};
+    QwiicTwist *parent_;
     char i2c_address_ = 0x3F;
 
 };

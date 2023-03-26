@@ -1,6 +1,7 @@
 #pragma once
 
 #include "esphome/core/component.h"
+#include "esphome/components/i2c/i2c.h"
 
 #include "esphome/core/hal.h"
 #include "esphome/core/automation.h"
@@ -16,13 +17,12 @@ namespace qwiic_twist {
 static const char *const TAG = "qwiic_twist";
 
 
-class QwiicTwist : public PollingComponent {
+class QwiicTwist : public Component {
 
   public:
     QwiicTwist(): PollingComponent{ 50 } {}
     
     void setup() override;
-    void update() override;
 
     float get_setup_priority() const override;
 
@@ -39,19 +39,13 @@ class QwiicTwist : public PollingComponent {
       this->twist_encoder_->set_publish_initial_value(publish_initial_value);
     }
 
-    void add_on_clockwise_callback(std::function<void()> callback) {
-      this->twist_encoder_->add_on_clockwise_callback.add(std::move(callback));
-    }
-    void add_on_anticlockwise_callback(std::function<void()> callback) {
-      this->twist_encoder_->add_on_anticlockwise_callback.add(std::move(callback));
-    }
 
   
   protected:
     char i2c_address_ = 0x3F;
 
-    QwiicTwistRGB     *twist_rgb_     = new QwiicTwistRGB(this, "Twist Light");
-    QwiicTwistEncoder *twist_encoder_ = new QwiicTwistEncoder(this, "Twist Encoder");
+    QwiicTwistRGB     *twist_rgb_     = new QwiicTwistRGB(this);
+    QwiicTwistEncoder *twist_encoder_ = new QwiicTwistEncoder(this);
 
 };
 
