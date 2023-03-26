@@ -41,6 +41,11 @@ class QwiicTwistRGB : public light::LightOutput, public Component {
     float green_max_ { 1.0  };
     float blue_min_  { 0.14 };
     float blue_max_  { 1.0  };
+    
+    uint8_t red_float_to_uint8( float v );
+    uint8_t green_float_to_uint8( float v );
+    uint8_t blue_float_to_uint8( float v );
+
 
 };
 
