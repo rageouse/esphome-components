@@ -1,5 +1,7 @@
 #include "qwiic_twist.h"
 
+#include "esphome/core/log.h"
+
 namespace esphome {
 namespace qwiic_twist {
 
@@ -11,21 +13,13 @@ float QwiicTwist::get_setup_priority() const {
 
 void QwiicTwist::setup() {
   ESP_LOGCONFIG(TAG, "Setting up Qwiic Twist...");
-  if (this->write8(SEESAW_STATUS, SEESAW_STATUS_SWRST, 0xff) != i2c::ERROR_OK) {
+  uint8_t buf;
+  if (this->readbuf(0x00, &buf, q) != i2c::ERROR_OK) {
+    ESP_LOGCONFIG(TAG, "Failed to read unique identifier (0x00)!");
     this->mark_failed();
     return;
   }
-  
-  uint8_t c = 0;
-  this->readbuf(SEESAW_STATUS, SEESAW_STATUS_HW_ID, &c, 1);
-  std::string cpu;
-  if (c == SEESAW_HW_ID_SAMD09)
-    cpu = "SAMD09";
-  else if (c == SEESAW_HW_ID_TINY8X7)
-    cpu = "TINY8X7";
-  else
-    cpu = "unknown";
-  ESP_LOGCONFIG(TAG, "Hardware type is %s", cpu.c_str());
+  ESP_LOGCONFIG(TAG, "Qwiic Twist unique identifier is %u", buf);
 }
 
 
