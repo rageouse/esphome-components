@@ -4,12 +4,12 @@ from esphome.components import light
 from esphome.const import CONF_OUTPUT_ID
 from .. import qwiic_twist_ns, QwiicTwist, CONF_QWIIC_TWIST
 
-CONF_RED_MIN   = "mc_qt_red_min"
-CONF_RED_MAX   = "mc_qt_red_max"
-CONF_GREEN_MIN = "mc_qt_green_min"
-CONF_GREEN_MAX = "mc_qt_green_max"
-CONF_BLUE_MIN  = "mc_qt_blue_min"
-CONF_BLUE_MAX  = "mc_qt_blue_max"
+CONF_RED_MIN   = "red_min"
+CONF_RED_MAX   = "red_max"
+CONF_GREEN_MIN = "green_min"
+CONF_GREEN_MAX = "green_max"
+CONF_BLUE_MIN  = "blue_min"
+CONF_BLUE_MAX  = "blue_max"
 
 QwiicTwistRGB = qwiic_twist_ns.class_("QwiicTwistRGB", light.LightOutput, cg.Component)
 

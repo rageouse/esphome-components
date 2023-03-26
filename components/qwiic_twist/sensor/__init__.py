@@ -7,7 +7,7 @@ from .. import qwiic_twist_ns, QwiicTwist, CONF_QWIIC_TWIST
 QwiicTwistEncoder = qwiic_twist_ns.class_("QwiicTwistEncoder", sensor.Sensor, cg.PollingComponent)
 
 CONFIG_SCHEMA = sensor.sensor_schema(
-    accuracy_decimals=1,
+    accuracy_decimals=0,
     state_class=STATE_CLASS_NONE,
 ).extend(
     {
