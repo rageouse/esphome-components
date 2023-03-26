@@ -22,7 +22,7 @@ class QwiicTwistRGB : public light::LightOutput, public Component {
     void write_state(light::LightState *state) override;
     
     void set_parent(QwiicTwist *parent) {
-      this.parent_ = parent;
+      this->parent_ = parent;
     }
 
   protected:

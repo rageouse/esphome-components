@@ -14,7 +14,7 @@ float QwiicTwist::get_setup_priority() const {
 void QwiicTwist::setup() {
   ESP_LOGCONFIG(TAG, "Setting up Qwiic Twist...");
   uint8_t buf;
-  if (this->readbuf(0x00, &buf, q) != i2c::ERROR_OK) {
+  if (this->readbuf(0x00, &buf, 1) != i2c::ERROR_OK) {
     ESP_LOGCONFIG(TAG, "Failed to read unique identifier (0x00)!");
     this->mark_failed();
     return;

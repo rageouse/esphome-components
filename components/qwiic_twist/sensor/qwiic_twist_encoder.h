@@ -52,7 +52,7 @@ class QwiicTwistEncoder : public sensor::Sensor, public PollingComponent {
     }
 
     void set_parent(QwiicTwist *parent) {
-      this.parent_ = parent;
+      this->parent_ = parent;
     }
 
   protected:
