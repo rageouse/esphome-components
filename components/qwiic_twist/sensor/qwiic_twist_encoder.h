@@ -3,7 +3,7 @@
 #include <array>
 
 #include "esphome.h"
-#include "qwiic_twist.h"
+#include "../qwiic_twist.h"
 
 #include "esphome/core/component.h"
 #include "esphome/core/hal.h"
@@ -37,15 +37,6 @@ class QwiicTwist;
 class QwiicTwistEncoder : public sensor::Sensor, public PollingComponent {
 
   public:
-    QwiicTwistEncoder(QwiicTwist *parent)
-        : PollingComponent{ 50 }
-        , parent_{ parent }
-        {}
-    
-    QwiicTwistEncoder()
-        : QwiicTwistEncoder{ nullptr }
-        {}
-
     void set_value(int16_t value);
     void set_restore_mode(TwistEncoderRestoreMode restore_mode);
     void set_publish_initial_value(bool publish_initial_value);
@@ -64,18 +55,15 @@ class QwiicTwistEncoder : public sensor::Sensor, public PollingComponent {
       this.parent_ = parent;
     }
 
-  
   protected:
     QwiicTwist *parent_ { nullptr };
-    char i2c_address_ = 0x3F;
 
     TwistEncoderSensorStore store_{};
     TwistEncoderRestoreMode restore_mode_{TWIST_ENCODER_RESTORE_DEFAULT_ZERO};
-    bool publish_initial_value_;
+    bool publish_initial_value_{false};
     
     CallbackManager<void()> on_clockwise_callback_;
     CallbackManager<void()> on_anticlockwise_callback_;
-
 };
 
 

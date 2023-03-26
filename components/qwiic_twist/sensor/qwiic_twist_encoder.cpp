@@ -1,52 +1,43 @@
-#include "esphome.h"
-#include "qwiic_twist.h"
-
 #include "qwiic_twist_encoder.h"
+#include "esphome/components/i2c/i2c.h"
 #include "esphome/core/log.h"
 #include "esphome/core/helpers.h"
 
 namespace esphome {
 namespace qwiic_twist {
 
-
+static const char *const TAG = "qwiic_twist.encoder";
 
 void QwiicTwistEncoder::setup() {
   ESP_LOGCONFIG(TAG, "Setting up Qwiic Twist Encoder '%s'...", this->name_.c_str());
 
-  Wire.beginTransmission(this->i2c_address_);
-  Wire.write(0x07);
-  Wire.endTransmission();
-  Wire.requestFrom(this->i2c_address_, 2);
-  byte buff[2];
-  Wire.readBytes(buff, 2);
-  int16_t initial_value = (buff[0] | buff[1] << 8);
+  uint8_t buff[2];
+  if( this->parent_->readbuf(0x07, buff, 2) != i2c::ERROR_OK )
+    ESP_LOGCONFIG(TAG, "Error reading initial value for '%s'...", this->name_.c_str());
 
+  int16_t initial_value = (buff[0] | buff[1] << 8);
+  
+  
+  
   this->store_.counter = initial_value;
   this->store_.last_read = initial_value;
 }
 
 void QwiicTwistEncoder::set_value(int16_t value) {
+  this->store_.last_read = this->store_.counter;
   this->store_.counter = value;
   
-  byte msb = ((unsigned char)value >> 8) & 0xFF;
-  byte lsb =  (unsigned char)value       & 0xFF;
-  
-  Wire.beginTransmission(this->i2c_address_);
-  Wire.write(0x07);
-  Wire.write(lsb);
-  Wire.write(msb);
-  Wire.endTransmission();
+  if( this->parent_->write16(0x07, value) != i2c::ERROR_OK )
+    ESP_LOGCONFIG(TAG, "Error writing encoder value for '%s'...", this->name_.c_str());;
 }
 
 void QwiicTwistEncoder::update() {
   this->store_.last_read = this->store_.counter;
-  
-  Wire.beginTransmission(this->i2c_address_);
-  Wire.write(0x07);
-  Wire.endTransmission();
-  Wire.requestFrom(this->i2c_address_, 2);
-  byte buff[2];
-  Wire.readBytes(buff, 2);
+
+  uint8_t buff[2];
+  if( parent_->readbuf(0x07, buff, 2) != i2c::ERROR_OK )
+    ESP_LOGCONFIG(TAG, "Error reading encoder value for '%s'...", this->name_.c_str());
+
   int16_t value = (buff[0] | buff[1] << 8);
 
   this->store_.counter = value;
