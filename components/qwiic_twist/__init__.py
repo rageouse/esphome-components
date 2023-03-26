@@ -15,7 +15,7 @@ CONF_QWIIC_TWIST = 'qwiic_twist'
 
 CONFIG_SCHEMA = cv.COMPONENT_SCHEMA.extend(
     {
-        cv.GenerateID(): cv.declare_id(QwiicTwist)
+        cv.GenerateID(CONF_QWIIC_TWIST): cv.declare_id(QwiicTwist)
     }
 ).extend(i2c.i2c_device_schema(0x3f))
 
