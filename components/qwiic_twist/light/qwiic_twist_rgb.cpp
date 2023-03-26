@@ -27,7 +27,7 @@ void QwiicTwistRGB::write_state(light::LightState *state) {
                   };
 
   if( this->parent_->write(buf, 4) != i2c::ERROR_OK )
-    ESP_LOGCONFIG(TAG, "Error writing rgb value for '%s'...", this->name_.c_str());;
+    ESP_LOGCONFIG(TAG, "Error writing Qwiic Twist rgb value...");
 
 }
     
