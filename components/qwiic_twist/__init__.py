@@ -29,12 +29,12 @@ async def to_code(config):
     await cg.register_component(qwiic_twist, config)
     
     qwiic_twist_rgb = cg.new_Pvariable(config[CONF_LIGHT_ID])
-    await cg.register_component(qwiic_twist_rgb, config)
+#     await cg.register_component(qwiic_twist_rgb, config)
     await light.register_light(qwiic_twist_rgb, config)
     cg.add(qwiic_twist_rgb.set_parent(qwiic_twist))
 
     qwiic_twist_encoder = cg.new_Pvariable(config[CONF_SENSOR_ID])
-    await cg.register_component(qwiic_twist_encoder, config)
+#     await cg.register_component(qwiic_twist_encoder, config)
     await sensor.register_sensor(qwiic_twist_encoder, config)
     cg.add(qwiic_twist_encoder.set_parent(qwiic_twist))
 
