@@ -20,6 +20,8 @@ CONFIG_SCHEMA = (
         }
     )
     .extend(cv.COMPONENT_SCHEMA)
+    .extend(light.RGB_LIGHT_SCHEMA)
+    .extend(sensor.SENSOR_SCHEMA)
 )
 
 async def to_code(config):
