@@ -58,14 +58,14 @@ CONFIG_SCHEMA = sensor.sensor_schema(
         cv.Optional(CONF_ON_CLOCKWISE): automation.validate_automation(
             {
                 cv.GenerateID(CONF_TRIGGER_ID): cv.declare_id(
-                    RotaryEncoderClockwiseTrigger
+                    TwistEncoderClockwiseTrigger
                 ),
             }
         ),
         cv.Optional(CONF_ON_ANTICLOCKWISE): automation.validate_automation(
             {
                 cv.GenerateID(CONF_TRIGGER_ID): cv.declare_id(
-                    RotaryEncoderAnticlockwiseTrigger
+                    TwistEncoderAnticlockwiseTrigger
                 ),
             }
         ),
