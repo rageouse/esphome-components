@@ -1,7 +1,7 @@
 import esphome.codegen as cg
 import esphome.config_validation as cv
 from esphome.components import light
-from esphome.const import CONF_OUTPUT_ID
+from esphome.const import CONF_OUTPUT_ID, CONF_GAMMA_CORRECT
 from .. import qwiic_twist_ns, QwiicTwist, CONF_QWIIC_TWIST
 
 CONF_RED_MIN   = "red_min"
@@ -18,11 +18,12 @@ CONFIG_SCHEMA = light.RGB_LIGHT_SCHEMA.extend(
         cv.GenerateID(CONF_OUTPUT_ID): cv.declare_id(QwiicTwistRGB),
         cv.GenerateID(CONF_QWIIC_TWIST): cv.use_id(QwiicTwist),
         cv.Optional(CONF_RED_MIN  , default=0.00): cv.zero_to_one_float,
-        cv.Optional(CONF_RED_MAX  , default=1.00): cv.zero_to_one_float,
+        cv.Optional(CONF_RED_MAX  , default=0.89): cv.zero_to_one_float,
         cv.Optional(CONF_GREEN_MIN, default=0.00): cv.zero_to_one_float,
         cv.Optional(CONF_GREEN_MAX, default=1.00): cv.zero_to_one_float,
         cv.Optional(CONF_BLUE_MIN , default=0.00): cv.zero_to_one_float,
-        cv.Optional(CONF_BLUE_MAX , default=1.00): cv.zero_to_one_float,
+        cv.Optional(CONF_BLUE_MAX , default=0.95): cv.zero_to_one_float,
+        cv.Optional(CONF_GAMMA_CORRECT , default=1.00): cv.positive_float,
     }
 )
 
