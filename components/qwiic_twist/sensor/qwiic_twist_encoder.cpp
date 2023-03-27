@@ -24,7 +24,7 @@ void QwiicTwistEncoder::setup() {
       break;
     case TWIST_ENCODER_ALWAYS_ZERO:
       initial_value = 0;
-      this->set_value( initial_value )
+      this->set_value( initial_value );
       break;
   }
   
@@ -35,7 +35,7 @@ void QwiicTwistEncoder::setup() {
     this->publish_state(initial_value);
 }
 
-void QwiicTwistEncoder::set_value(int16_t value, bool and_update=false) {
+void QwiicTwistEncoder::set_value(int16_t value, bool and_update /* = false */) {
   if( this->parent_->write16(0x07, value) != i2c::ERROR_OK )
     ESP_LOGCONFIG(TAG, "Error writing encoder value for '%s'...", this->name_.c_str());
 
