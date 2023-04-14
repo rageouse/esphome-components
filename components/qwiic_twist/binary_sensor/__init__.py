@@ -4,7 +4,7 @@ from esphome.components import binary_sensor
 from esphome.const import CONF_ID, CONF_PIN
 from .. import qwiic_twist_ns, QwiicTwist, CONF_QWIIC_TWIST
 
-QwiicTwistBinarySensor = seesaw_ns.class_(
+QwiicTwistBinarySensor = qwiic_twist_ns.class_(
     "QwiicTwistBinarySensor", binary_sensor.BinarySensor, cg.PollingComponent
 )
 
