@@ -16,7 +16,7 @@ void QwiicTwistEncoder::setup() {
     case TWIST_ENCODER_RESTORE_DEFAULT_ZERO:
       this->rtc_ = global_preferences->make_preference<int32_t>(this->get_object_id_hash());
       if (!this->rtc_.load(&initial_value)) {
-        if( not parent_->read_byte_16(0x07, &initial_value) )
+        if( not parent_->read_byte_16(0x07, static_cast<uint16_t *>(&initial_value)) )
           ESP_LOGCONFIG(TAG, "Error reading encoder initial value for '%s'...", this->name_.c_str());
       }
       break;
