@@ -9,9 +9,9 @@ namespace qwiic_twist {
 static const char *const TAG = "qwiic_twist.encoder";
 
 int16_t QwiicTwistEncoder::read_encoder_value() {
-  uint8_t buffer[] = {0, 0};
+  uint8_t buf[] = {0, 0};
   
-  if( not parent_->read_bytes(0x07, buffer, 2) )
+  if( not parent_->read_bytes(0x07, buf, 2) )
     return 0;
   
   return ( buf[0] | buf[1]<<8 );
