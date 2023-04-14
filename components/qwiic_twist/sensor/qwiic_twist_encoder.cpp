@@ -42,7 +42,7 @@ void QwiicTwistEncoder::setup() {
 }
 
 void QwiicTwistEncoder::set_value(int16_t value, bool and_update /* = false */) {
-  if( not this->parent_->write_byte_16(0x07, reinterpret_cast<uint16_t>(value)) )
+  if( not this->parent_->write_byte_16(0x07, value) ) // FIXME
     ESP_LOGCONFIG(TAG, "Error writing encoder value for '%s'...", this->name_.c_str());
 
   if( and_update ) {
