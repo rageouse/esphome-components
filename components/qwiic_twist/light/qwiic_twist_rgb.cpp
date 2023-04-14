@@ -42,7 +42,7 @@ void QwiicTwistRGB::write_state(light::LightState *state) {
                                        this->blue_float_to_uint8(blue)
                                      };
 
-  if( not this->parent_->write_register(color_register, color_buf) )
+  if( not this->parent_->write_bytes(color_register, color_buf) )
     ESP_LOGCONFIG(TAG, "Error writing Qwiic Twist rgb value...");
 
 }

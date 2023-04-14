@@ -10,9 +10,9 @@ namespace qwiic_twist {
 class QwiicTwist;
 
 
-const byte twistStatusButtonClickedBit = 2;
-const byte twistStatusButtonPressedBit = 1;
-const byte twistStatusEncoderMovedBit = 0;
+const uint8_t twistStatusButtonClickedBit = 2;
+const uint8_t twistStatusButtonPressedBit = 1;
+const uint8_t twistStatusEncoderMovedBit = 0;
 
 
 class QwiicTwistBinarySensor : public binary_sensor::BinarySensor, public PollingComponent {
@@ -26,6 +26,7 @@ class QwiicTwistBinarySensor : public binary_sensor::BinarySensor, public Pollin
   QwiicTwist *parent_;
   
   uint8_t get_status_byte();
+  bool put_status_byte(uint8_t status_byte);
 };
 
 }  // namespace qwiic_twist
