@@ -23,28 +23,8 @@ void QwiicTwist::setup() {
 }
 
 
-i2c::ErrorCode QwiicTwist::write8(uint8_t reg, uint8_t value) {
-  uint8_t buf[2] = {reg, value};
-  return this->write(buf, 2);
 }
 
-i2c::ErrorCode QwiicTwist::write16(uint8_t reg, uint16_t value) {
-  uint8_t buf[3] = {reg, (uint8_t)(value >> 8), (uint8_t)value};
-  return this->write(buf, 3);
-}
-
-i2c::ErrorCode QwiicTwist::write32(uint8_t reg, uint32_t value) {
-  uint8_t buf[5] = {reg, (uint8_t)(value >> 24), (uint8_t)(value >> 16),
-                    (uint8_t)(value >> 8), (uint8_t)value};
-  return this->write(buf, 5);
-}
-
-i2c::ErrorCode QwiicTwist::readbuf(uint8_t reg, uint8_t *buf, uint8_t len) {
-  i2c::ErrorCode err = this->write(&reg, 1);
-  if (err != i2c::ERROR_OK)
-    return err;
-  return this->read(buf, len);
-}
 
 
 } // namespace qwiic_twist

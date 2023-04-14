@@ -36,13 +36,13 @@ void QwiicTwistRGB::write_state(light::LightState *state) {
   float red, green, blue;
   state->current_values_as_rgb(&red, &green, &blue, false);
   
-  uint8_t buf[] = { 0x0D, // 0x0D = Red; 0x0E = Green; 0x0F = Blue; register auto-increments
-                    this->red_float_to_uint8(red),
-                    this->green_float_to_uint8(green),
-                    this->blue_float_to_uint8(blue)
-                  };
+  uint8_t color_register = 0x0D; // 0x0D = Red; 0x0E = Green; 0x0F = Blue; register auto-increments
+  std::array<uint8_t, 3> color_buf = { this->red_float_to_uint8(red),
+                                       this->green_float_to_uint8(green),
+                                       this->blue_float_to_uint8(blue)
+                                     };
 
-  if( this->parent_->write(buf, 4) != i2c::ERROR_OK )
+  if( not this->parent_->write_register(color_register, color_buf) )
     ESP_LOGCONFIG(TAG, "Error writing Qwiic Twist rgb value...");
 
 }

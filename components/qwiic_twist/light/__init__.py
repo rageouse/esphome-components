@@ -18,7 +18,7 @@ CONFIG_SCHEMA = light.RGB_LIGHT_SCHEMA.extend(
         cv.GenerateID(CONF_OUTPUT_ID): cv.declare_id(QwiicTwistRGB),
         cv.GenerateID(CONF_QWIIC_TWIST): cv.use_id(QwiicTwist),
         cv.Optional(CONF_RED_MIN  ,     default=0.00): cv.zero_to_one_float,
-        cv.Optional(CONF_RED_MAX  ,     default=0.89): cv.zero_to_one_float,
+        cv.Optional(CONF_RED_MAX  ,     default=0.85): cv.zero_to_one_float,
         cv.Optional(CONF_GREEN_MIN,     default=0.00): cv.zero_to_one_float,
         cv.Optional(CONF_GREEN_MAX,     default=1.00): cv.zero_to_one_float,
         cv.Optional(CONF_BLUE_MIN ,     default=0.00): cv.zero_to_one_float,

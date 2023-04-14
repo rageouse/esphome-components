@@ -15,11 +15,14 @@ class QwiicTwist : public i2c::I2CDevice, public Component {
 
     void setup() override;
   
+
+  protected:
+    friend class QwiicTwistRGB;
+    friend class QwiicTwistEncoder;
+    
     i2c::ErrorCode write8( uint8_t reg, uint8_t  value);
     i2c::ErrorCode write16(uint8_t reg, uint16_t value);
     i2c::ErrorCode write32(uint8_t reg, uint32_t value);
-    i2c::ErrorCode readbuf(uint8_t reg, uint8_t   *buf, uint8_t len);
-
 };
 
 
