@@ -62,6 +62,8 @@ class QwiicTwistEncoder : public sensor::Sensor, public PollingComponent {
     TwistEncoderRestoreMode restore_mode_{TWIST_ENCODER_RESTORE_DEFAULT_ZERO};
     bool publish_initial_value_{false};
     
+    int16_t read_encoder_value();
+    
     ESPPreferenceObject rtc_;
     
     CallbackManager<void()> on_clockwise_callback_;

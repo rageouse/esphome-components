@@ -8,6 +8,15 @@ namespace qwiic_twist {
 
 static const char *const TAG = "qwiic_twist.encoder";
 
+int16_t QwiicTwistEncoder::read_encoder_value() {
+  uint8_t buffer[] = {0, 0};
+  
+  if( not parent_->read_bytes(0x07, buffer, 2) )
+    return 0;
+  
+  return ( buf[0] | buf[1]<<8 );
+}
+
 void QwiicTwistEncoder::setup() {
   ESP_LOGCONFIG(TAG, "Setting up Qwiic Twist Encoder '%s'...", this->name_.c_str());
 
@@ -16,8 +25,7 @@ void QwiicTwistEncoder::setup() {
     case TWIST_ENCODER_RESTORE_DEFAULT_ZERO:
       this->rtc_ = global_preferences->make_preference<int32_t>(this->get_object_id_hash());
       if (!this->rtc_.load(&initial_value)) {
-        if( not parent_->read_byte_16(0x07, reinterpret_cast<uint16_t *>(&initial_value)) )
-          ESP_LOGCONFIG(TAG, "Error reading encoder initial value for '%s'...", this->name_.c_str());
+        initial_value = this->read_encoder_value();
       }
       break;
     case TWIST_ENCODER_ALWAYS_ZERO:
@@ -34,7 +42,7 @@ void QwiicTwistEncoder::setup() {
 }
 
 void QwiicTwistEncoder::set_value(int16_t value, bool and_update /* = false */) {
-  if( not this->parent_->write_byte_16(0x07, value) )
+  if( not this->parent_->write_byte_16(0x07, reinterpret_cast<uint16_t>(value)) )
     ESP_LOGCONFIG(TAG, "Error writing encoder value for '%s'...", this->name_.c_str());
 
   if( and_update ) {
@@ -49,9 +57,7 @@ void QwiicTwistEncoder::set_value(int16_t value, bool and_update /* = false */) 
 void QwiicTwistEncoder::update() {
   this->store_.last_read = this->store_.counter;
 
-  int16_t value;
-  if( not parent_->read_byte_16(0x07, reinterpret_cast<uint16_t *>(&value)) )
-    ESP_LOGCONFIG(TAG, "Error reading encoder value for '%s'...", this->name_.c_str());
+  int16_t value = this->read_encoder_value();
 
   if( value == this->store_.counter ) return;
   
