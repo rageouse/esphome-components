@@ -49,8 +49,8 @@ void QwiicTwistEncoder::set_value(int16_t value, bool and_update /* = false */) 
 void QwiicTwistEncoder::update() {
   this->store_.last_read = this->store_.counter;
 
-  uint16_t value;
-  if( not parent_->read_byte_16(0x07, &value) )
+  int16_t value;
+  if( not parent_->read_byte_16(0x07, reinterpret_cast<uint16_t *>(&value)) )
     ESP_LOGCONFIG(TAG, "Error reading encoder value for '%s'...", this->name_.c_str());
 
   if( value == this->store_.counter ) return;
