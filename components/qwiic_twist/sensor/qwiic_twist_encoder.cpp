@@ -42,7 +42,9 @@ void QwiicTwistEncoder::setup() {
 }
 
 void QwiicTwistEncoder::set_value(int16_t value, bool and_update /* = false */) {
-  if( not this->parent_->write_byte_16(0x07, value) ) // FIXME
+  uint8_t buf[] = { value | 0xFF, (value >> 8) | 0xFF };
+
+  if( not this->parent_->write_bytes(0x07, buf, 2) )
     ESP_LOGCONFIG(TAG, "Error writing encoder value for '%s'...", this->name_.c_str());
 
   if( and_update ) {
@@ -68,7 +70,7 @@ void QwiicTwistEncoder::update() {
   for( ; value < store_.last_read; value++ )
     this->on_anticlockwise_callback_.call();
 
-  this->publish_state(value);
+  this->publish_state(store_.counter);
 }
 
 void QwiicTwistEncoder::set_restore_mode(TwistEncoderRestoreMode restore_mode) {
