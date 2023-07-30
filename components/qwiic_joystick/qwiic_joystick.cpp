@@ -12,7 +12,7 @@ static const char *const TAG = "qwiic_joystick";
 
 
 void QwiicJoystick::setup() {
-  ESP_LOGCONFIG(TAG, "Setting up Qwiic Joystick '%s'...", this->name_.c_str());
+  ESP_LOGCONFIG(TAG, "Setting up Qwiic Joystick...");
   
   uint16_t version = 0;
   
@@ -25,7 +25,7 @@ void QwiicJoystick::setup() {
 void QwiicJoystick::update() {
   uint8_t button_pressed, button_clicked;
   
-  uint8_t x_msb, x_lsb, y_msb, y_lsb
+  uint8_t x_msb, x_lsb, y_msb, y_lsb;
   
   this->read_bytes(0x07, &button_pressed, 1);
   this->read_bytes(0x08, &button_clicked, 1);
