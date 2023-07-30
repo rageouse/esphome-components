@@ -13,34 +13,22 @@ QwiicJoystick     = qwiic_joystick_ns.class_("QwiicJoystick", i2c.I2CDevice, cg.
 DEPENDENCIES = ["i2c"]
 AUTO_LOAD = ["sensor"]
 
-CONF_QWIIC_JOYSTICK = 'qwiic_joystick'
+CONF_QWIIC_JOYSTICK  = 'qwiic_joystick'
 
-CONF_BUTTON                  = 'button'
+CONF_BUTTON          = 'button'
 
-CONF_X_AXIS_RAW              = 'x_axis_raw'
-CONF_X_AXIS_RAW_CENTERED     = 'x_axis_raw_centered'
-CONF_X_AXIS_8_BIT            = 'x_axis_8_bit'
-CONF_X_AXIS_8_BIT_CENTERED   = 'x_axis_8_bit_centered'
-CONF_X_AXIS_PERCENT          = 'x_axis_percent'
-CONF_X_AXIS_PERCENT_CENTERED = 'x_axis_percent_centered'
+CONF_X_AXIS          = 'x_axis'
+CONF_X_AXIS_CENTERED = 'x_axis_centered'
 
-CONF_Y_AXIS_RAW              = 'y_axis_raw'
-CONF_Y_AXIS_RAW_CENTERED     = 'y_axis_raw_centered'
-CONF_Y_AXIS_8_BIT            = 'y_axis_8_bit'
-CONF_Y_AXIS_8_BIT_CENTERED   = 'y_axis_8_bit_centered'
-CONF_Y_AXIS_PERCENT          = 'y_axis_percent'
-CONF_Y_AXIS_PERCENT_CENTERED = 'y_axis_percent_centered'
+CONF_Y_AXIS          = 'y_axis'
+CONF_Y_AXIS_CENTERED = 'y_axis_centered'
 
-CONF_RADIUS_SQUARED_RAW      = 'radius_squared_raw'
-CONF_RADIUS_RAW              = 'radius_raw'
-CONF_RADIUS_SQUARED_PERCENT  = 'radius_squared_percent'
-CONF_RADIUS_PERCENT          = 'radius_percent'
-CONF_THETA_DEGREES           = 'theta_degrees'
-CONF_THETA_RADIANS           = 'theta_radians'
+CONF_RADIUS_SQUARED  = 'radius_squared'
+CONF_THETA           = 'theta'
 
-ICON_RADIUS                  = 'mdi:radius-outline'
-ICON_ANGLE                   = 'mdi:angle-acute'
-ICON_BUTTON                  = 'mdi:radiobox-marked'
+ICON_RADIUS          = 'mdi:radius-outline'
+ICON_ANGLE           = 'mdi:angle-acute'
+ICON_BUTTON          = 'mdi:radiobox-marked'
 
 def unitless_axis_schema(axis=None):
     icon = ICON_ACCELERATION
@@ -134,78 +122,30 @@ async def to_code(config):
         sens = await binary_sensor.new_binary_sensor(config[CONF_BUTTON])
         cg.add(var.set_button_sensor(sens))
     
-    if CONF_X_AXIS_RAW in config:
-        sens = await sensor.new_sensor(config[CONF_X_AXIS_RAW])
-        cg.add(var.set_x_axis_raw_sensor(sens))
     
-    if CONF_X_AXIS_RAW_CENTERED in config:
-        sens = await sensor.new_sensor(config[CONF_X_AXIS_RAW_CENTERED])
-        cg.add(var.set_x_axis_raw_centered_sensor(sens))
+    if CONF_X_AXIS in config:
+        sens = await sensor.new_sensor(config[CONF_X_AXIS])
+        cg.add(var.set_x_axis_sensor(sens))
     
-    if CONF_X_AXIS_8_BIT in config:
-        sens = await sensor.new_sensor(config[CONF_X_AXIS_8_BIT])
-        cg.add(var.set_x_axis_8_bit_sensor(sens))
+    if CONF_X_AXIS_CENTERED in config:
+        sens = await sensor.new_sensor(config[CONF_X_AXIS_CENTERED])
+        cg.add(var.set_x_axis_centered_sensor(sens))
+        
     
-    if CONF_X_AXIS_8_BIT_CENTERED in config:
-        sens = await sensor.new_sensor(config[CONF_X_AXIS_8_BIT_CENTERED])
-        cg.add(var.set_x_axis_8_bit_centered_sensor(sens))
+    if CONF_Y_AXIS in config:
+        sens = await sensor.new_sensor(config[CONF_Y_AXIS])
+        cg.add(var.set_y_axis_sensor(sens))
     
-    if CONF_X_AXIS_PERCENT in config:
-        sens = await sensor.new_sensor(config[CONF_X_AXIS_PERCENT])
-        cg.add(var.set_x_axis_percent_sensor(sens))
+    if CONF_Y_AXIS_CENTERED in config:
+        sens = await sensor.new_sensor(config[CONF_Y_AXIS_CENTERED])
+        cg.add(var.set_y_axis_centered_sensor(sens))
+        
     
-    if CONF_X_AXIS_PERCENT_CENTERED in config:
-        sens = await sensor.new_sensor(config[CONF_X_AXIS_PERCENT_CENTERED])
-        cg.add(var.set_x_axis_percent_centered_sensor(sens))
-    
-    
-    if CONF_Y_AXIS_RAW in config:
-        sens = await sensor.new_sensor(config[CONF_Y_AXIS_RAW])
-        cg.add(var.set_y_axis_raw_sensor(sens))
-    
-    if CONF_Y_AXIS_RAW_CENTERED in config:
-        sens = await sensor.new_sensor(config[CONF_Y_AXIS_RAW_CENTERED])
-        cg.add(var.set_y_axis_raw_centered_sensor(sens))
-    
-    if CONF_Y_AXIS_8_BIT in config:
-        sens = await sensor.new_sensor(config[CONF_Y_AXIS_8_BIT])
-        cg.add(var.set_y_axis_8_bit_sensor(sens))
-    
-    if CONF_Y_AXIS_8_BIT_CENTERED in config:
-        sens = await sensor.new_sensor(config[CONF_Y_AXIS_8_BIT_CENTERED])
-        cg.add(var.set_y_axis_8_bit_centered_sensor(sens))
-    
-    if CONF_Y_AXIS_PERCENT in config:
-        sens = await sensor.new_sensor(config[CONF_Y_AXIS_PERCENT])
-        cg.add(var.set_y_axis_percent_sensor(sens))
-    
-    if CONF_Y_AXIS_PERCENT_CENTERED in config:
-        sens = await sensor.new_sensor(config[CONF_Y_AXIS_PERCENT_CENTERED])
-        cg.add(var.set_y_axis_percent_centered_sensor(sens))
-    
-    
-    if CONF_RADIUS_SQUARED_RAW in config:
-        sens = await sensor.new_sensor(config[CONF_RADIUS_SQUARED_RAW])
-        cg.add(var.set_radius_squared_raw_sensor(sens))
-    
-    if CONF_RADIUS_RAW in config:
-        sens = await sensor.new_sensor(config[CONF_RADIUS_RAW])
-        cg.add(var.set_radius_raw_sensor(sens))
-    
-    if CONF_RADIUS_SQUARED_PERCENT in config:
-        sens = await sensor.new_sensor(config[CONF_RADIUS_SQUARED_PERCENT])
-        cg.add(var.set_radius_squared_percent_sensor(sens))
-    
-    if CONF_RADIUS_PERCENT in config:
-        sens = await sensor.new_sensor(config[CONF_RADIUS_PERCENT])
-        cg.add(var.set_radius_percent_sensor(sens))
+    if CONF_RADIUS_SQUARED in config:
+        sens = await sensor.new_sensor(config[CONF_RADIUS_SQUARED])
+        cg.add(var.set_radius_squared_sensor(sens))
     
 
-    if CONF_THETA_DEGREES in config:
-        sens = await sensor.new_sensor(config[CONF_THETA_DEGREES])
-        cg.add(var.set_theta_degrees_sensor(sens))
-    
-    if CONF_THETA_RADIANS in config:
-        sens = await sensor.new_sensor(config[CONF_THETA_RADIANS])
-        cg.add(var.set_theta_radians_sensor(sens))
-    
+    if CONF_THETA in config:
+        sens = await sensor.new_sensor(config[CONF_THETA])
+        cg.add(var.set_theta_sensor(sens))

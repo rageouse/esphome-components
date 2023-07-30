@@ -20,6 +20,20 @@ void QwiicJoystick::setup() {
     ESP_LOGCONFIG(TAG, "- Version %d.", version);
   else
     ESP_LOGCONFIG(TAG, "- Error: could not read version number!");
+
+  this->read_bytes(0x03, &x_msb, 1);
+  this->read_bytes(0x04, &x_lsb, 1);
+  
+  this->read_bytes(0x05, &y_msb, 1);
+  this->read_bytes(0x06, &y_lsb, 1);
+  
+  uint16_t x = ((x_msb << 8) | x_lsb) >> 6;
+  uint16_t y = ((y_msb << 8) | y_lsb) >> 6;
+
+  this->center_x_ = x;
+  this->center_y_ = y;
+
+  ESP_LOGCONFIG(TAG, "- Center point (%d, %d).", this->center_x_, this->center_y_);
 }
 
 void QwiicJoystick::update() {
@@ -39,72 +53,34 @@ void QwiicJoystick::update() {
   uint16_t x = ((x_msb << 8) | x_lsb) >> 6;
   uint16_t y = ((y_msb << 8) | y_lsb) >> 6;
   
-  int16_t x_msb_c = static_cast<int16_t>(x_msb)-128;
-  int16_t y_msb_c = static_cast<int16_t>(y_msb)-128;
+  int16_t x_c = static_cast<int16_t>(x) - this->center_x_;
+  int16_t y_c = static_cast<int16_t>(y) - this->center_y_;
   
   
   if( this->button_sensor_ ) {
-    this->button_sensor_->publish_state(static_cast<bool>(button_clicked));
+    if( button_clicked ) this->button_sensor_->publish_state(true);
     this->button_sensor_->publish_state(static_cast<bool>(button_pressed));
   }  
 
-  if( this->x_axis_raw_sensor_ )
-    this->x_axis_raw_sensor_->publish_state(x);
+  if( this->x_axis_sensor_ )
+    this->x_axis_sensor_->publish_state(x);
   
-  if( this->x_axis_raw_centered_sensor_ )
-    this->x_axis_raw_sensor_->publish_state(static_cast<int16_t>(x)-512);
+  if( this->x_axis_centered_sensor_ )
+    this->x_axis_sensor_->publish_state(x_c);
   
-  if( this->x_axis_8_bit_sensor_ )
-    this->x_axis_raw_sensor_->publish_state(x_msb);
   
-  if( this->x_axis_8_bit_centered_sensor_ )
-    this->x_axis_raw_sensor_->publish_state(x_msb_c);
+  if( this->y_axis_sensor_ )
+    this->y_axis_sensor_->publish_state(y);
   
-  if( this->x_axis_percent_sensor_ )
-    this->x_axis_percent_sensor_->publish_state(static_cast<double>(x)/1024.0);
-    
-  if( this->x_axis_percent_centered_sensor_ )
-    this->x_axis_percent_centered_sensor_->publish_state(static_cast<double>(x)/512.0 - 100.0);
-    
-  
-  if( this->y_axis_raw_sensor_ )
-    this->y_axis_raw_sensor_->publish_state(y);
-  
-  if( this->y_axis_raw_centered_sensor_ )
-    this->y_axis_raw_sensor_->publish_state(static_cast<int16_t>(y)-512);
-  
-  if( this->y_axis_8_bit_sensor_ )
-    this->y_axis_raw_sensor_->publish_state(y_msb);
-  
-  if( this->y_axis_8_bit_centered_sensor_ )
-    this->y_axis_raw_sensor_->publish_state(y_msb_c);
-  
-  if( this->y_axis_percent_sensor_ )
-    this->y_axis_percent_sensor_->publish_state(static_cast<double>(y)/1024.0);
-    
-  if( this->y_axis_percent_centered_sensor_ )
-    this->y_axis_percent_centered_sensor_->publish_state(static_cast<double>(y)/512.0 - 100.0);
+  if( this->y_axis_centered_sensor_ )
+    this->y_axis_sensor_->publish_state(y_c);
   
     
-  if( this->radius_squared_raw_sensor_ )
-    this->radius_squared_raw_sensor_->publish_state(x_msb_c*x_msb_c+y_msb_c*y_msb_c);
-  
-  if( this->radius_raw_sensor_ )
-    this->radius_raw_sensor_->publish_state(sqrt(x_msb_c*x_msb_c+y_msb_c*y_msb_c));
-  
-  if( this->radius_squared_percent_sensor_ )
-    this->radius_squared_percent_sensor_->publish_state(static_cast<double>(x_msb_c*x_msb_c+y_msb_c*y_msb_c)/65536.0);
-  
-  if( this->radius_percent_sensor_ )
-    this->radius_percent_sensor_->publish_state(sqrt(static_cast<double>(x_msb_c*x_msb_c+y_msb_c*y_msb_c))/65536.0);
-  
+  if( this->radius_squared_sensor_ )
+    this->radius_squared_sensor_->publish_state(x_c*x_c+y_c*y_c);
   
   if( this->theta_degrees_sensor_ )
-    this->theta_degrees_sensor_->publish_state(atan2(static_cast<double>(y), static_cast<double>(x))*180.0/3.14159);
-    
-  if( this->theta_radians_sensor_ )
-    this->theta_radians_sensor_->publish_state(atan2(static_cast<double>(y), static_cast<double>(x)));
-    
+    this->theta_degrees_sensor_->publish_state(atan2(static_cast<double>(y_c), static_cast<double>(x_c))*180.0/3.14159);
   
   
 }
