@@ -88,29 +88,17 @@ CONFIG_SCHEMA = cv.COMPONENT_SCHEMA.extend(
         
         cv.Optional(CONF_BUTTON): binary_sensor.binary_sensor_schema(icon=ICON_BUTTON),
         
-        cv.Optional(CONF_X_AXIS_RAW):              unitless_axis_schema('x'),
-        cv.Optional(CONF_X_AXIS_RAW_CENTERED):     unitless_axis_schema('x'),
-        cv.Optional(CONF_X_AXIS_8_BIT):            unitless_axis_schema('x'),
-        cv.Optional(CONF_X_AXIS_8_BIT_CENTERED):   unitless_axis_schema('x'),
-        cv.Optional(CONF_X_AXIS_PERCENT):           percent_axis_schema('x'),
-        cv.Optional(CONF_X_AXIS_PERCENT_CENTERED):  percent_axis_schema('x'),
+        cv.Optional(CONF_X_AXIS):              unitless_axis_schema('x'),
+        cv.Optional(CONF_X_AXIS_CENTERED):     unitless_axis_schema('x'),
         
-        cv.Optional(CONF_Y_AXIS_RAW):              unitless_axis_schema('y'),
-        cv.Optional(CONF_Y_AXIS_RAW_CENTERED):     unitless_axis_schema('y'),
-        cv.Optional(CONF_Y_AXIS_8_BIT):            unitless_axis_schema('y'),
-        cv.Optional(CONF_Y_AXIS_8_BIT_CENTERED):   unitless_axis_schema('y'),
-        cv.Optional(CONF_Y_AXIS_PERCENT):           percent_axis_schema('y'),
-        cv.Optional(CONF_Y_AXIS_PERCENT_CENTERED):  percent_axis_schema('y'),
+        cv.Optional(CONF_Y_AXIS):              unitless_axis_schema('y'),
+        cv.Optional(CONF_Y_AXIS_CENTERED):     unitless_axis_schema('y'),
         
-        cv.Optional(CONF_RADIUS_SQUARED_RAW):      radius_unitless_schema,
-        cv.Optional(CONF_RADIUS_RAW):              radius_unitless_schema,
-        cv.Optional(CONF_RADIUS_SQUARED_PERCENT):  radius_percent_schema,
-        cv.Optional(CONF_RADIUS_PERCENT):          radius_percent_schema,
+        cv.Optional(CONF_RADIUS_SQUARED):      radius_unitless_schema,
         
-        cv.Optional(CONF_THETA_DEGREES):           angle_radians_schema,
-        cv.Optional(CONF_THETA_RADIANS):           angle_degrees_schema,
+        cv.Optional(CONF_THETA):           angle_radians_schema,
     }
-).extend(cv.polling_component_schema('30ms')).extend(i2c.i2c_device_schema(0x20))
+).extend(cv.polling_component_schema('50ms')).extend(i2c.i2c_device_schema(0x20))
 
 
 async def to_code(config):
