@@ -12,7 +12,7 @@ class QwiicTwist;
 
 const uint8_t twistStatusButtonClickedBit = 2;
 const uint8_t twistStatusButtonPressedBit = 1;
-const uint8_t twistStatusEncoderMovedBit = 0;
+const uint8_t twistStatusEncoderMovedBit  = 0;
 
 
 class QwiicTwistBinarySensor : public binary_sensor::BinarySensor, public PollingComponent {

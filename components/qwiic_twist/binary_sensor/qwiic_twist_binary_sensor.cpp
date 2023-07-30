@@ -5,7 +5,7 @@
 namespace esphome {
 namespace qwiic_twist {
 
-static const char *const TAG = "seesaw.binary_sensor";
+static const char *const TAG = "qwiic_twist.binary_sensor";
 
 uint8_t QwiicTwistBinarySensor::get_status_byte() {
   uint8_t status_byte = 0;
@@ -40,11 +40,16 @@ void QwiicTwistBinarySensor::update() {
   bool clicked = status_byte & (1 << twistStatusButtonClickedBit);
   
   this->publish_state( pressed );
+  
+  if(!pressed && clicked) {
+    this->publish_state( true );
+    this->publish_state( false);
+  }
 
   this->put_status_byte( status_byte & ~(1 << twistStatusButtonPressedBit)
                                      & ~(1 << twistStatusButtonClickedBit) );
 
 }
 
-}  // namespace seesaw
+}  // namespace qwiic_twist
 }  // namespace esphome

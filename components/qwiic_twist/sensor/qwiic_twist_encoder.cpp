@@ -82,6 +82,6 @@ void QwiicTwistEncoder::set_publish_initial_value(bool publish_initial_value) {
 }
 
 
-} // namespace qwiic-twist
+} // namespace qwiic_twist
 } // namespace esphome
 
