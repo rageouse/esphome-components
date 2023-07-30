@@ -44,8 +44,8 @@ void QwiicJoystick::update() {
   
   
   if( this->button_sensor_ ) {
-    this->button_sensor_->publish_state(static_cast<bool>button_clicked);
-    this->button_sensor_->publish_state(static_cast<bool>button_pressed);
+    this->button_sensor_->publish_state(static_cast<bool>(button_clicked));
+    this->button_sensor_->publish_state(static_cast<bool>(button_pressed));
   }  
 
   if( this->x_axis_raw_sensor_ )
