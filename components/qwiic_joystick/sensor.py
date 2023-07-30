@@ -2,7 +2,7 @@ import esphome.codegen as cg
 import esphome.config_validation as cv
 from esphome.components import sensor, binary_sensor, i2c
 from esphome.const import ICON_ACCELERATION, ICON_ACCELERATION_X, ICON_ACCELERATION_Y, ICON_ACCELERATION_Z
-from esphome.const import UNIT_EMPTY, UNIT_PERCENT, STATE_CLASS_MEASUREMENT
+from esphome.const import UNIT_EMPTY, UNIT_PERCENT, UNIT_DEGREES, STATE_CLASS_MEASUREMENT
 
 CODEOWNERS = ["@mcmanigle"]
 MULTI_CONF = True
