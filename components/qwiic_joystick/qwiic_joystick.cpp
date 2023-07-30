@@ -21,6 +21,8 @@ void QwiicJoystick::setup() {
   else
     ESP_LOGCONFIG(TAG, "- Error: could not read version number!");
 
+  uint8_t x_msb, x_lsb, y_msb, y_lsb;
+
   this->read_bytes(0x03, &x_msb, 1);
   this->read_bytes(0x04, &x_lsb, 1);
   
@@ -33,7 +35,7 @@ void QwiicJoystick::setup() {
   this->center_x_ = x;
   this->center_y_ = y;
 
-  ESP_LOGCONFIG(TAG, "- Center point (%d, %d).", this->center_x_, this->center_y_);
+  ESP_LOGCONFIG(TAG, "- Center point (%d, %d).", x, y);
 }
 
 void QwiicJoystick::update() {
