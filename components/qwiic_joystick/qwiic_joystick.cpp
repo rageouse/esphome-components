@@ -81,8 +81,8 @@ void QwiicJoystick::update() {
   if( this->radius_squared_sensor_ )
     this->radius_squared_sensor_->publish_state(x_c*x_c+y_c*y_c);
   
-  if( this->theta_degrees_sensor_ )
-    this->theta_degrees_sensor_->publish_state(atan2(static_cast<double>(y_c), static_cast<double>(x_c))*180.0/3.14159);
+  if( this->theta_sensor_ )
+    this->theta_sensor_->publish_state(atan2(static_cast<double>(y_c), static_cast<double>(x_c))*180.0/3.14159);
   
   
 }
