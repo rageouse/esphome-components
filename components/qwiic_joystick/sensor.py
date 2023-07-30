@@ -15,7 +15,7 @@ AUTO_LOAD = ["sensor"]
 
 CONF_QWIIC_JOYSTICK = 'qwiic_joystick'
 
-CONF_BUTTON                = 'button'
+CONF_BUTTON                  = 'button'
 
 CONF_X_AXIS_RAW              = 'x_axis_raw'
 CONF_X_AXIS_RAW_CENTERED     = 'x_axis_raw_centered'
@@ -122,7 +122,7 @@ CONFIG_SCHEMA = cv.COMPONENT_SCHEMA.extend(
         cv.Optional(CONF_THETA_DEGREES):           angle_radians_schema,
         cv.Optional(CONF_THETA_RADIANS):           angle_degrees_schema,
     }
-).extend(cv.polling_component_schema('30ms').extend(i2c.i2c_device_schema(0x20)))
+).extend(cv.polling_component_schema('30ms')).extend(i2c.i2c_device_schema(0x20))
 
 
 async def to_code(config):
