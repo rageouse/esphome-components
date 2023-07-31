@@ -37,10 +37,7 @@ void QwiicJoystick::setup() {
 
 void QwiicJoystick::update() {
   uint8_t buf[6];
-  this->read_bytes(0x03, &buf, 6);
-  
-  this->read_bytes(0x07, &button_pressed, 1);
-  this->read_bytes(0x08, &button_clicked, 1);
+  this->read_bytes(0x03, buf, 6);
   
   uint16_t x = ((buf[0] << 8) | buf[1]) >> 6;
   uint16_t y = ((buf[2] << 8) | buf[3]) >> 6;
