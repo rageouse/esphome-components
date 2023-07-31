@@ -54,6 +54,9 @@ void QwiicJoystick::update() {
         this->button_sensor_->publish_state(static_cast<bool>(buf[4]));
   }  
   
+  for(i = 0; i < 6; i++) {
+    ESP_LOGCONFIG(TAG, "buf[%d] is %h", i, buf[i]);
+  }
   
   this->old_button_pressed_ = buf[4];
 
