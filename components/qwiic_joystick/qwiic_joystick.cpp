@@ -14,7 +14,7 @@ static const char *const TAG = "qwiic_joystick";
 void QwiicJoystick::setup() {
   ESP_LOGCONFIG(TAG, "Setting up Qwiic Joystick...");
   
-  uint16_t version = 0;
+  uint16_t version;
   
   if( this->read_bytes_16(0x01, &version, 1) )
     ESP_LOGCONFIG(TAG, "- Version %d.", version);

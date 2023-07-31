@@ -96,7 +96,7 @@ CONFIG_SCHEMA = cv.COMPONENT_SCHEMA.extend(
         
         cv.Optional(CONF_RADIUS_SQUARED):      radius_unitless_schema,
         
-        cv.Optional(CONF_THETA):           angle_radians_schema,
+        cv.Optional(CONF_THETA):               angle_radians_schema,
     }
 ).extend(cv.polling_component_schema('50ms')).extend(i2c.i2c_device_schema(0x20))
 
