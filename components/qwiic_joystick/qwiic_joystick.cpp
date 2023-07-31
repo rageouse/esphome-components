@@ -36,6 +36,8 @@ void QwiicJoystick::setup() {
 }
 
 void QwiicJoystick::update() {
+  ESP_LOGCONFIG(TAG, "Updating Qwiic Joystick...");
+
   uint8_t buf[6];
   this->read_bytes(0x03, buf, 6);
   
@@ -51,7 +53,8 @@ void QwiicJoystick::update() {
     if( buf[5] || buf[4] != this->old_button_pressed_ )
         this->button_sensor_->publish_state(static_cast<bool>(buf[4]));
   }  
-
+  
+  
   this->old_button_pressed_ = buf[4];
 
   if( x == this->old_x_ && y == this->old_y_ )
@@ -70,7 +73,7 @@ void QwiicJoystick::update() {
   if( this->y_axis_centered_sensor_ )
     this->y_axis_sensor_->publish_state(y_c);
   
-    
+  
   if( this->radius_squared_sensor_ )
     this->radius_squared_sensor_->publish_state(x_c*x_c+y_c*y_c);
   
