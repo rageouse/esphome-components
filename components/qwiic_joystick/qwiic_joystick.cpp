@@ -36,8 +36,6 @@ void QwiicJoystick::setup() {
 }
 
 void QwiicJoystick::update() {
-  ESP_LOGCONFIG(TAG, "Updating Qwiic Joystick...");
-
   this->read_bytes(0x03, this->buf, 6);
   
   uint16_t x = ((this->buf[0] << 8) | this->buf[1]) >> 6;
@@ -57,16 +55,6 @@ void QwiicJoystick::update() {
     this->write_byte(0x08, 0x00);
   }  
   
-  for(uint8_t i = 0; i < 6; i++) {
-    ESP_LOGCONFIG(TAG, "buf[%d] is 0x%X (%d)", i, buf[i], buf[i]);
-  }
-  ESP_LOGCONFIG(TAG, "x is 0x%X (%d)", x, x);
-  ESP_LOGCONFIG(TAG, "y is 0x%X (%d)", y, y);
-  ESP_LOGCONFIG(TAG, "x_f is %.2f", x_f);
-  ESP_LOGCONFIG(TAG, "y_f is %.2f", y_f);
-  ESP_LOGCONFIG(TAG, "x_c is %.2f", x_c);
-  ESP_LOGCONFIG(TAG, "y_c is %.2f", y_c);
-  
   this->old_button_pressed_ = buf[4];
 
   if( x == this->old_x_ && y == this->old_y_ )
@@ -85,14 +73,14 @@ void QwiicJoystick::update() {
   if( this->y_axis_centered_sensor_ != nullptr)
     this->y_axis_centered_sensor_->publish_state(y_c);
   
-  /*
+  
   if( this->radius_squared_sensor_ != nullptr) {
     this->radius_squared_sensor_->publish_state(x_f*x_f+y_f*y_f);
   }
   
   if( this->theta_sensor_ != nullptr)
     this->theta_sensor_->publish_state(atan2(y_c, x_c)*180.0/3.14159);
-  */
+  
   this->old_x_ = x;
   this->old_y_ = y;
 }
