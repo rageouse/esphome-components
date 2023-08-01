@@ -30,8 +30,8 @@ void QwiicJoystick::setup() {
   this->old_x_ = x;
   this->old_y_ = y;
 
-  this->center_x_ = static_cast<int16_t>(x);
-  this->center_y_ = static_cast<int16_t>(y);
+  this->center_x_ = x;
+  this->center_y_ = y;
 
   ESP_LOGCONFIG(TAG, "- Center point (%d, %d).", x, y);
 }
@@ -45,8 +45,11 @@ void QwiicJoystick::update() {
   uint16_t x = ((buf[0] << 8) | buf[1]) >> 6;
   uint16_t y = ((buf[2] << 8) | buf[3]) >> 6;
   
-  int16_t x_c = static_cast<int16_t>(x) - this->center_x_;
-  int16_t y_c = static_cast<int16_t>(y) - this->center_y_;
+  float x_f = x;
+  float y_f = y;
+  
+  float x_c = x - this->center_x_;
+  float y_c = y - this->center_y_;
   
   if( this->button_sensor_ ) {
     if( buf[5] )
@@ -61,8 +64,10 @@ void QwiicJoystick::update() {
   }
   ESP_LOGCONFIG(TAG, "x is 0x%X (%d)", x, x);
   ESP_LOGCONFIG(TAG, "y is 0x%X (%d)", y, y);
-  ESP_LOGCONFIG(TAG, "x_c is 0x%X (%d)", x_c, x_c);
-  ESP_LOGCONFIG(TAG, "y_c is 0x%X (%d)", y_c, y_c);
+  ESP_LOGCONFIG(TAG, "x_f is %d", x_f);
+  ESP_LOGCONFIG(TAG, "y_f is %d", y_f);
+  ESP_LOGCONFIG(TAG, "x_c is %d", x_c);
+  ESP_LOGCONFIG(TAG, "y_c is %d", y_c);
   
   this->old_button_pressed_ = buf[4];
 
@@ -70,28 +75,25 @@ void QwiicJoystick::update() {
     return;
 
   if( this->x_axis_sensor_ != nullptr)
-    this->x_axis_sensor_->publish_state(x);
+    this->x_axis_sensor_->publish_state(x_f);
   
   if( this->x_axis_centered_sensor_ != nullptr)
     this->x_axis_sensor_->publish_state(x_c);
   
   
   if( this->y_axis_sensor_ != nullptr)
-    this->y_axis_sensor_->publish_state(y);
+    this->y_axis_sensor_->publish_state(y_f);
   
   if( this->y_axis_centered_sensor_ != nullptr)
     this->y_axis_sensor_->publish_state(y_c);
   
   /*
   if( this->radius_squared_sensor_ != nullptr) {
-    int16_t divisor = 32;
-    int16_t x_c_div = x_c / divisor;
-    int16_t y_c_div = y_c / divisor;
-    this->radius_squared_sensor_->publish_state(x_c_div*x_c_div+y_c_div*y_c_div);
+    this->radius_squared_sensor_->publish_state(x_f*x_f+y_f*y_f);
   }
   
   if( this->theta_sensor_ != nullptr)
-    this->theta_sensor_->publish_state(atan2(static_cast<double>(y_c), static_cast<double>(x_c))*180.0/3.14159);
+    this->theta_sensor_->publish_state(atan2(y_c, x_c)*180.0/3.14159);
   */
   this->old_x_ = x;
   this->old_y_ = y;
