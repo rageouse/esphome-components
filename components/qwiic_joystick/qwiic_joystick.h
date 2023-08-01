@@ -41,6 +41,8 @@ class QwiicJoystick : public PollingComponent, public i2c::I2CDevice {
 
   sensor::Sensor *theta_sensor_               {nullptr};
 
+  uint8_t buf[6];
+
   uint16_t center_x_ {512};
   uint16_t center_y_ {512};
   

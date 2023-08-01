@@ -21,11 +21,10 @@ void QwiicJoystick::setup() {
   else
     ESP_LOGCONFIG(TAG, "- Error: could not read version number!");
 
-  uint8_t buf[4];
-  this->read_bytes(0x03, buf, 4);
+  this->read_bytes(0x03, this->buf, 4);
   
-  uint16_t x = ((buf[0] << 8) | buf[1]) >> 6;
-  uint16_t y = ((buf[2] << 8) | buf[3]) >> 6;
+  uint16_t x = ((this->buf[0] << 8) | this->buf[1]) >> 6;
+  uint16_t y = ((this->buf[2] << 8) | this->buf[3]) >> 6;
 
   this->old_x_ = x;
   this->old_y_ = y;
@@ -39,11 +38,10 @@ void QwiicJoystick::setup() {
 void QwiicJoystick::update() {
   ESP_LOGCONFIG(TAG, "Updating Qwiic Joystick...");
 
-  uint8_t buf[6];
-  this->read_bytes(0x03, buf, 6);
+  this->read_bytes(0x03, this->buf, 6);
   
-  uint16_t x = ((buf[0] << 8) | buf[1]) >> 6;
-  uint16_t y = ((buf[2] << 8) | buf[3]) >> 6;
+  uint16_t x = ((this->buf[0] << 8) | this->buf[1]) >> 6;
+  uint16_t y = ((this->buf[2] << 8) | this->buf[3]) >> 6;
   
   float x_f = x;
   float y_f = y;
@@ -52,10 +50,10 @@ void QwiicJoystick::update() {
   float y_c = y - this->center_y_;
   
   if( this->button_sensor_ ) {
-    if( buf[5] )
+    if( this->buf[5] )
         this->button_sensor_->publish_state(true);
-    if( buf[5] || buf[4] != this->old_button_pressed_ )
-        this->button_sensor_->publish_state(! static_cast<bool>(buf[4]));
+    if( this->buf[5] || this->buf[4] != this->old_button_pressed_ )
+        this->button_sensor_->publish_state(! static_cast<bool>(this->buf[4]));
     this->write_byte(0x08, 0x00);
   }  
   
