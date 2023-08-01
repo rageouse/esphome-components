@@ -39,7 +39,7 @@ void QwiicTwistBinarySensor::update() {
   bool pressed = status_byte & (1 << twistStatusButtonPressedBit);
   bool clicked = status_byte & (1 << twistStatusButtonClickedBit);
     
-  if(!pressed && !last_pressed && clicked) {
+  if(!pressed && !this->last_pressed_ && clicked) {
     this->publish_state( true );
     this->publish_state( false);
   }
@@ -49,7 +49,7 @@ void QwiicTwistBinarySensor::update() {
 
   this->put_status_byte( status_byte & ~(1 << twistStatusButtonPressedBit)
                                      & ~(1 << twistStatusButtonClickedBit) );
-  this->last_pressed = pressed;
+  this->last_pressed_ = pressed;
 
 }
 
