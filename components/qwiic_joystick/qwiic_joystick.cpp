@@ -55,7 +55,7 @@ void QwiicJoystick::update() {
   }  
   
   for(uint8_t i = 0; i < 6; i++) {
-    ESP_LOGCONFIG(TAG, "buf[%d] is %h", i, buf[i]);
+    ESP_LOGCONFIG(TAG, "buf[%d] is 0x%X", i, buf[i]);
   }
   
   this->old_button_pressed_ = buf[4];
