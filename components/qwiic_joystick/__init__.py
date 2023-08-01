@@ -28,7 +28,6 @@ CONF_THETA           = 'theta'
 
 ICON_RADIUS          = 'mdi:radius-outline'
 ICON_ANGLE           = 'mdi:angle-acute'
-ICON_BUTTON          = 'mdi:radiobox-marked'
 
 def unitless_axis_schema(axis=None):
     icon = ICON_ACCELERATION
@@ -86,7 +85,7 @@ CONFIG_SCHEMA = cv.COMPONENT_SCHEMA.extend(
     {
         cv.GenerateID(CONF_QWIIC_JOYSTICK): cv.declare_id(QwiicJoystick),
         
-        cv.Optional(CONF_BUTTON): binary_sensor.binary_sensor_schema(icon=ICON_BUTTON),
+        cv.Optional(CONF_BUTTON): binary_sensor.binary_sensor_schema(),
         
         cv.Optional(CONF_X_AXIS):              unitless_axis_schema('x'),
         cv.Optional(CONF_X_AXIS_CENTERED):     unitless_axis_schema('x'),

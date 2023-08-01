@@ -75,7 +75,7 @@ void QwiicJoystick::update() {
   
   
   if( this->radius_squared_sensor_ != nullptr) {
-    this->radius_squared_sensor_->publish_state(x_f*x_f+y_f*y_f);
+    this->radius_squared_sensor_->publish_state(x_c*x_c+y_c*y_c);
   }
   
   if( this->theta_sensor_ != nullptr)
