@@ -24,13 +24,14 @@ void QwiicJoystick::setup() {
   uint8_t buf[4];
   this->read_bytes(0x03, buf, 4);
   
-  uint16_t x = ((buf[0] << 8) | buf[1]) >> 6;
-  uint16_t y = ((buf[2] << 8) | buf[3]) >> 6;
+  uint16_t x = ((static_cast<uint16_t>(buf[0]) << 8) | static_cast<uint16_t>(buf[1])) >> 6;
+  uint16_t y = ((static_cast<uint16_t>(buf[2]) << 8) | static_cast<uint16_t>(buf[3])) >> 6;
 
-  this->center_x_ = x;
-  this->center_y_ = y;
   this->old_x_ = x;
   this->old_y_ = y;
+
+  this->center_x_ = static_cast<int16_t>(x);
+  this->center_y_ = static_cast<int16_t>(y);
 
   ESP_LOGCONFIG(TAG, "- Center point (%d, %d).", x, y);
 }
@@ -56,8 +57,12 @@ void QwiicJoystick::update() {
   }  
   
   for(uint8_t i = 0; i < 6; i++) {
-    ESP_LOGCONFIG(TAG, "buf[%d] is 0x%X", i, buf[i]);
+    ESP_LOGCONFIG(TAG, "buf[%d] is 0x%X (%d)", i, buf[i], buf[i]);
   }
+  ESP_LOGCONFIG(TAG, "x is %d", x);
+  ESP_LOGCONFIG(TAG, "x is %d", y);
+  ESP_LOGCONFIG(TAG, "x_c is %d", x_c);
+  ESP_LOGCONFIG(TAG, "x_c is %d", y_c);
   
   this->old_button_pressed_ = buf[4];
 
