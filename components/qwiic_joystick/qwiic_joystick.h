@@ -44,9 +44,9 @@ class QwiicJoystick : public PollingComponent, public i2c::I2CDevice {
   int16_t center_x_ {512};
   int16_t center_y_ {512};
   
-  uint16_t old_x_; 
-  uint16_t old_y_; 
-  uint8_t  old_button_pressed_; 
+  uint16_t old_x_ {512};
+  uint16_t old_y_ {512};
+  uint8_t  old_button_pressed_ {0}; 
 
  private:
 

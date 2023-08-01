@@ -69,28 +69,28 @@ void QwiicJoystick::update() {
   if( x == this->old_x_ && y == this->old_y_ )
     return;
 
-  if( this->x_axis_sensor_ )
+  if( this->x_axis_sensor_ != nullptr)
     this->x_axis_sensor_->publish_state(x);
   
-  if( this->x_axis_centered_sensor_ )
+  if( this->x_axis_centered_sensor_ != nullptr)
     this->x_axis_sensor_->publish_state(x_c);
   
   
-  if( this->y_axis_sensor_ )
+  if( this->y_axis_sensor_ != nullptr)
     this->y_axis_sensor_->publish_state(y);
   
-  if( this->y_axis_centered_sensor_ )
+  if( this->y_axis_centered_sensor_ != nullptr)
     this->y_axis_sensor_->publish_state(y_c);
   
   /*
-  if( this->radius_squared_sensor_ ) {
+  if( this->radius_squared_sensor_ != nullptr) {
     int16_t divisor = 32;
     int16_t x_c_div = x_c / divisor;
     int16_t y_c_div = y_c / divisor;
     this->radius_squared_sensor_->publish_state(x_c_div*x_c_div+y_c_div*y_c_div);
   }
   
-  if( this->theta_sensor_ )
+  if( this->theta_sensor_ != nullptr)
     this->theta_sensor_->publish_state(atan2(static_cast<double>(y_c), static_cast<double>(x_c))*180.0/3.14159);
   */
   this->old_x_ = x;
