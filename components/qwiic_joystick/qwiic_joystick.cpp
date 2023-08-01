@@ -21,11 +21,11 @@ void QwiicJoystick::setup() {
   else
     ESP_LOGCONFIG(TAG, "- Error: could not read version number!");
 
-  uint8_t buf[4];
+  uint16_t buf[4];
   this->read_bytes(0x03, buf, 4);
   
-  uint16_t x = ((static_cast<uint16_t>(buf[0]) << 8) | static_cast<uint16_t>(buf[1])) >> 6;
-  uint16_t y = ((static_cast<uint16_t>(buf[2]) << 8) | static_cast<uint16_t>(buf[3])) >> 6;
+  uint16_t x = ((buf[0] << 8) | buf[1]) >> 6;
+  uint16_t y = ((buf[2] << 8) | buf[3]) >> 6;
 
   this->old_x_ = x;
   this->old_y_ = y;
@@ -39,11 +39,11 @@ void QwiicJoystick::setup() {
 void QwiicJoystick::update() {
   ESP_LOGCONFIG(TAG, "Updating Qwiic Joystick...");
 
-  uint8_t buf[6];
+  uint16_t buf[6];
   this->read_bytes(0x03, buf, 6);
   
-  uint16_t x = ((static_cast<uint16_t>(buf[0]) << 8) | static_cast<uint16_t>(buf[1])) >> 6;
-  uint16_t y = ((static_cast<uint16_t>(buf[2]) << 8) | static_cast<uint16_t>(buf[3])) >> 6;
+  uint16_t x = ((buf[0] << 8) | buf[1]) >> 6;
+  uint16_t y = ((buf[2] << 8) | buf[3]) >> 6;
   
   int16_t x_c = static_cast<int16_t>(x) - this->center_x_;
   int16_t y_c = static_cast<int16_t>(y) - this->center_y_;
@@ -59,10 +59,10 @@ void QwiicJoystick::update() {
   for(uint8_t i = 0; i < 6; i++) {
     ESP_LOGCONFIG(TAG, "buf[%d] is 0x%X (%d)", i, buf[i], buf[i]);
   }
-  ESP_LOGCONFIG(TAG, "x is %d", x);
-  ESP_LOGCONFIG(TAG, "x is %d", y);
-  ESP_LOGCONFIG(TAG, "x_c is %d", x_c);
-  ESP_LOGCONFIG(TAG, "x_c is %d", y_c);
+  ESP_LOGCONFIG(TAG, "x is 0x%X (%d)", x, x);
+  ESP_LOGCONFIG(TAG, "y is 0x%X (%d)", y, y);
+  ESP_LOGCONFIG(TAG, "x_c is 0x%X (%d)", x_c, x_c);
+  ESP_LOGCONFIG(TAG, "y_c is 0x%X (%d)", y_c, y_c);
   
   this->old_button_pressed_ = buf[4];
 
