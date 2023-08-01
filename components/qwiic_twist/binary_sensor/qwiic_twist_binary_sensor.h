@@ -25,6 +25,8 @@ class QwiicTwistBinarySensor : public binary_sensor::BinarySensor, public Pollin
  protected:
   QwiicTwist *parent_;
   
+  bool last_pressed_ {false};
+  
   uint8_t get_status_byte();
   bool put_status_byte(uint8_t status_byte);
 };
