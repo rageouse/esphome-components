@@ -82,13 +82,14 @@ void QwiicJoystick::update() {
   if( this->y_axis_centered_sensor_ )
     this->y_axis_sensor_->publish_state(y_c);
   
+  /*
   if( this->radius_squared_sensor_ ) {
     int16_t divisor = 32;
     int16_t x_c_div = x_c / divisor;
     int16_t y_c_div = y_c / divisor;
     this->radius_squared_sensor_->publish_state(x_c_div*x_c_div+y_c_div*y_c_div);
   }
-  /*
+  
   if( this->theta_sensor_ )
     this->theta_sensor_->publish_state(atan2(static_cast<double>(y_c), static_cast<double>(x_c))*180.0/3.14159);
   */
