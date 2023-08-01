@@ -21,7 +21,7 @@ void QwiicJoystick::setup() {
   else
     ESP_LOGCONFIG(TAG, "- Error: could not read version number!");
 
-  uint16_t buf[4];
+  uint8_t buf[4];
   this->read_bytes(0x03, buf, 4);
   
   uint16_t x = ((buf[0] << 8) | buf[1]) >> 6;
@@ -39,7 +39,7 @@ void QwiicJoystick::setup() {
 void QwiicJoystick::update() {
   ESP_LOGCONFIG(TAG, "Updating Qwiic Joystick...");
 
-  uint16_t buf[6];
+  uint8_t buf[6];
   this->read_bytes(0x03, buf, 6);
   
   uint16_t x = ((buf[0] << 8) | buf[1]) >> 6;
