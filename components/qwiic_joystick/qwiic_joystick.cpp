@@ -63,7 +63,7 @@ void QwiicJoystick::update() {
   ESP_LOGCONFIG(TAG, "y is 0x%X (%d)", y, y);
   ESP_LOGCONFIG(TAG, "x_c is 0x%X (%d)", x_c, x_c);
   ESP_LOGCONFIG(TAG, "y_c is 0x%X (%d)", y_c, y_c);
-  
+  /*
   this->old_button_pressed_ = buf[4];
 
   if( x == this->old_x_ && y == this->old_y_ )
@@ -91,6 +91,7 @@ void QwiicJoystick::update() {
   
   this->old_x_ = x;
   this->old_y_ = y;
+  */
 }
 
 float QwiicJoystick::get_setup_priority() const {
