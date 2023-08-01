@@ -76,14 +76,14 @@ void QwiicJoystick::update() {
     this->x_axis_sensor_->publish_state(x_f);
   
   if( this->x_axis_centered_sensor_ != nullptr)
-    this->x_axis_sensor_->publish_state(x_c);
+    this->x_axis_centered_sensor_->publish_state(x_c);
   
   
   if( this->y_axis_sensor_ != nullptr)
     this->y_axis_sensor_->publish_state(y_f);
   
   if( this->y_axis_centered_sensor_ != nullptr)
-    this->y_axis_sensor_->publish_state(y_c);
+    this->y_axis_centered_sensor_->publish_state(y_c);
   
   /*
   if( this->radius_squared_sensor_ != nullptr) {
