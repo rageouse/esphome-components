@@ -64,10 +64,10 @@ void QwiicJoystick::update() {
   }
   ESP_LOGCONFIG(TAG, "x is 0x%X (%d)", x, x);
   ESP_LOGCONFIG(TAG, "y is 0x%X (%d)", y, y);
-  ESP_LOGCONFIG(TAG, "x_f is %d", x_f);
-  ESP_LOGCONFIG(TAG, "y_f is %d", y_f);
-  ESP_LOGCONFIG(TAG, "x_c is %d", x_c);
-  ESP_LOGCONFIG(TAG, "y_c is %d", y_c);
+  ESP_LOGCONFIG(TAG, "x_f is %.2f", x_f);
+  ESP_LOGCONFIG(TAG, "y_f is %.2f", y_f);
+  ESP_LOGCONFIG(TAG, "x_c is %.2f", x_c);
+  ESP_LOGCONFIG(TAG, "y_c is %.2f", y_c);
   
   this->old_button_pressed_ = buf[4];
 
