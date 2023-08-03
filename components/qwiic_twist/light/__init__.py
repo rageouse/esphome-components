@@ -15,7 +15,7 @@ QwiicTwistRGB = qwiic_twist_ns.class_("QwiicTwistRGB", light.LightOutput, cg.Com
 
 CONFIG_SCHEMA = light.RGB_LIGHT_SCHEMA.extend(
     {
-        cv.GenerateID(CONF_OUTPUT_ID): cv.declare_id(QwiicTwistRGB),
+        cv.GenerateID(CONF_OUTPUT_ID):   cv.declare_id(QwiicTwistRGB),
         cv.GenerateID(CONF_QWIIC_TWIST): cv.use_id(QwiicTwist),
         cv.Optional(CONF_RED_MIN  ,     default=0.00): cv.zero_to_one_float,
         cv.Optional(CONF_RED_MAX  ,     default=0.80): cv.zero_to_one_float,

@@ -19,17 +19,17 @@ light::LightTraits QwiicTwistRGB::get_traits() {
 uint8_t QwiicTwistRGB::red_float_to_uint8( float v ) {
     if( v < 0.01 ) return 0;
     v = v * (this->red_max_ - this->red_min_) + this->red_min_;
-    return static_cast<uint8_t>(v * 255);
+    return v * 255;
 }
 uint8_t QwiicTwistRGB::green_float_to_uint8( float v ) {
     if( v < 0.01 ) return 0;
     v = v * (this->green_max_ - this->green_min_) + this->green_min_;
-    return static_cast<uint8_t>(v * 255);
+    return v * 255;
 }
 uint8_t QwiicTwistRGB::blue_float_to_uint8( float v ) {
     if( v < 0.01 ) return 0;
     v = v * (this->blue_max_ - this->blue_min_) + this->blue_min_;
-    return static_cast<uint8_t>(v * 255);
+    return v * 255;
 }
 
 void QwiicTwistRGB::write_state(light::LightState *state) {
@@ -43,10 +43,10 @@ void QwiicTwistRGB::write_state(light::LightState *state) {
                                      };
 
   if( not this->parent_->write_bytes(color_register, color_buf) )
-    ESP_LOGCONFIG(TAG, "Error writing Qwiic Twist rgb value...");
+    ESP_LOGE(TAG, "Error writing Qwiic Twist rgb value...");
 
 }
-    
+
 
 
 } // namespace qwiic_twist
