@@ -19,7 +19,7 @@ void QwiicTwist::setup() {
   
   TwistBytes bytes = this->read_twist_bytes();
   
-  if( bytes.readError || this.writeError ) {
+  if( bytes.readError || bytes.writeError ) {
     ESP_LOGCONFIG(TAG, "- Failed to read or write to Qwiic Twist! Giving up.");
     this->mark_failed();
     return;
@@ -52,7 +52,7 @@ void QwiicTwist::setup() {
   if( this->button_sensor_ ) {
       ESP_LOGCONFIG(TAG, "- Setting up Qwiic Twist Button...");
 
-      this->button_sensor_->publish_initial_state( bytes->buttonPressed );
+      this->button_sensor_->publish_initial_state( bytes.buttonPressed );
   }
   else {
       ESP_LOGCONFIG(TAG, "- Skipping Qwiic Twist Button; no sensor defined...");
@@ -125,7 +125,7 @@ TwistBytes QwiicTwist::read_twist_bytes(bool and_reset /* = true */) {
   return bytes;
 }
 
-bool TwistBytes QwiicTwist::write_encoder_count(int16_t c) {
+bool QwiicTwist::write_encoder_count(int16_t c) {
   if(! this->write_byte_16(0x05, c) )
     ESP_LOGE(TAG, "Unable to write encoder bytes for Qwiic Twist at %#2x...", this->address_);
     return false;
