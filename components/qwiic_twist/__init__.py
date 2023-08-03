@@ -135,4 +135,3 @@ async def to_code(config):
 #     template_ = await cg.templatable(config[CONF_VALUE], args, int)
 #     cg.add(var.set_value(template_))
 #     return var
-# 
