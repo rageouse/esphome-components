@@ -107,15 +107,15 @@ template<typename... Ts> class TwistEncoderSetValueAction : public Action<Ts...>
 
 class TwistEncoderClockwiseTrigger : public Trigger<> {
  public:
-  explicit TwistEncoderClockwiseTrigger(QwiicTwist *parent) {
-    parent->add_on_clockwise_callback([this]() { this->trigger(); });
+  explicit TwistEncoderClockwiseTrigger(QwiicTwist *twist) {
+    twist->add_on_clockwise_callback([this]() { this->trigger(); });
   }
 };
 
 class TwistEncoderAnticlockwiseTrigger : public Trigger<> {
  public:
-  explicit TwistEncoderAnticlockwiseTrigger(QwiicTwist *parent) {
-    parent->add_on_anticlockwise_callback([this]() { this->trigger(); });
+  explicit TwistEncoderAnticlockwiseTrigger(QwiicTwist *twist) {
+    twist->add_on_anticlockwise_callback([this]() { this->trigger(); });
   }
 };
 

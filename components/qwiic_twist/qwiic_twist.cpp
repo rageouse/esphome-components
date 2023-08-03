@@ -65,13 +65,12 @@ void QwiicTwist::update() {
   TwistBytes bytes = this->read_twist_bytes();
   
   if( this->encoder_sensor_ && bytes.encoderCount != this->last_encoder_count_ ) {
-    this->last_encoder_count_ = bytes.encoderCount;
-
-    for( ; bytes.encoderCount > this->last_encoder_count_; bytes.encoderCount-- )
+    for(int new_count = bytes.encoderCount; new_count > this->last_encoder_count_; new_count-- )
       this->on_clockwise_callback_.call();
-    for( ; bytes.encoderCount < this->last_encoder_count_; bytes.encoderCount++ )
+    for(int new_count = bytes.encoderCount; new_count < this->last_encoder_count_; new_count++ )
       this->on_anticlockwise_callback_.call();
 
+    this->last_encoder_count_ = bytes.encoderCount;
     this->encoder_sensor_->publish_state(this->last_encoder_count_);
   }
 
