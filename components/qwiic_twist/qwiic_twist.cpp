@@ -7,7 +7,7 @@ namespace qwiic_twist {
 
 static const char *const TAG = "qwiic_twist";
 
-const uint_8 zeros[] = {0, 0, 0, 0, 0, 0};
+const uint8_t zeros[] = {0, 0, 0, 0, 0, 0};
 
 float QwiicTwist::get_setup_priority() const {
   return setup_priority::IO;

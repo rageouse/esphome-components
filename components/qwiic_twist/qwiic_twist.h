@@ -49,7 +49,7 @@ class QwiicTwist : public i2c::I2CDevice, public PollingComponent {
       this->encoder_restore_mode_ = v;
     }
     void set_publish_initial_encoder_value(bool v) {
-      this->publish_initial_encoder_value = v;
+      this->publish_initial_encoder_value_ = v;
     }
     
     void add_on_clockwise_callback(std::function<void()> callback) {
