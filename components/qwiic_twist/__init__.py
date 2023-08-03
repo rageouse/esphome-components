@@ -84,7 +84,7 @@ CONFIG_SCHEMA = cv.COMPONENT_SCHEMA.extend(
     {
         cv.GenerateID(CONF_QWIIC_TWIST): cv.declare_id(QwiicTwist),
         cv.Optional(CONF_ENCODER):       encoder_schema,
-        cv.Optional(CONF_BUTTON):        binary.sensor.BINARY_SENSOR_SCHEMA,
+        cv.Optional(CONF_BUTTON):        binary_sensor.BINARY_SENSOR_SCHEMA,
         
     }
 ).extend(cv.polling_component_schema('50ms')).extend(i2c.i2c_device_schema(0x3f))
