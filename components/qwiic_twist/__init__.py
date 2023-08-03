@@ -16,7 +16,6 @@ from esphome.const import (
     CONF_RESTORE_MODE,
     CONF_PUBLISH_INITIAL_STATE
 )
-from .. import qwiic_twist_ns, QwiicTwist, CONF_QWIIC_TWIST
 
 CONF_QWIIC_TWIST = 'qwiic_twist'
 CONF_ENCODER = "encoder"
