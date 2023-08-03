@@ -126,7 +126,7 @@ TwistBytes QwiicTwist::read_twist_bytes(bool and_reset /* = true */) {
 }
 
 bool QwiicTwist::write_encoder_count(int16_t c) {
-  if(! this->write_byte_16(0x05, c) ) }
+  if(! this->write_byte_16(0x05, c) ) {
     ESP_LOGE(TAG, "Unable to write encoder bytes for Qwiic Twist at %#2x...", this->address_);
     return false;
   }
