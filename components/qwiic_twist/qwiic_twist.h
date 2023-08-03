@@ -15,10 +15,9 @@ namespace qwiic_twist {
 struct TwistBytes {
   uint8_t  id                    {0};
   uint8_t  status                {0};
-  bool     buttonPressed     {false};
   bool     buttonClicked     {false};
-  bool     buttonInterrupt   {false};
-  bool     encoderInterrupt  {false};
+  bool     buttonPressed     {false};
+  bool     encoderMoved      {false};
   uint16_t firmware              {0};
   uint8_t  interruptEnable       {0};
   int16_t  encoderCount          {0};
