@@ -100,10 +100,9 @@ TwistBytes QwiicTwist::read_twist_bytes(bool and_reset /* = true */) {
   
   bytes.id                    = this->buf[ 0];
   bytes.status                = this->buf[ 1];
-  bytes.buttonPressed         = this->buf[ 1] & 1<<3;
   bytes.buttonClicked         = this->buf[ 1] & 1<<2;
-  bytes.buttonInterrupt       = this->buf[ 1] & 1<<1;
-  bytes.encoderInterrupt      = this->buf[ 1] & 1<<0;
+  bytes.buttonPressed         = this->buf[ 1] & 1<<1;
+  bytes.encoderMoved          = this->buf[ 1] & 1<<0;
   bytes.firmware              = this->buf[ 2] << 8 | this->buf[ 3];
   bytes.interruptEnable       = this->buf[ 4];
   bytes.encoderCount          = this->buf[ 6] << 8 | this->buf[ 5];
