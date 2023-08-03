@@ -27,7 +27,7 @@ struct TwistBytes {
   uint16_t timeSinceLastButton   {0};
   bool     readError         {false};
   bool     writeError        {false};
-}
+};
 
 
 // restore modes for the rotary encoder
@@ -59,10 +59,10 @@ class QwiicTwist : public i2c::I2CDevice, public PollingComponent {
       this->on_anticlockwise_callback_.add(std::move(callback));
     }
     
-    void set_encoder_sensor(sensor::Sensor s) {
+    void set_encoder_sensor(sensor::Sensor *s) {
       this->encoder_sensor_ = s;
     }
-    void set_button_sensor(binary_sensor::BinarySensor s) {
+    void set_button_sensor(binary_sensor::BinarySensor *s) {
       this->button_sensor_ = s;
     }
 
