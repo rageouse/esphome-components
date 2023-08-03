@@ -23,18 +23,19 @@ CONF_BUTTON = "button"
 CONF_ON_CLOCKWISE = "on_clockwise"
 CONF_ON_ANTICLOCKWISE = "on_anticlockwise"
 
-ENCODER_RESTORE_MODES = {
-    "RESTORE_DEFAULT_ZERO": TwistEncoderRestoreMode.TWIST_ENCODER_RESTORE_DEFAULT_ZERO,
-    "ALWAYS_ZERO": TwistEncoderRestoreMode.TWIST_ENCODER_ALWAYS_ZERO,
-}
-
 CODEOWNERS = ["@mcmanigle"]
 MULTI_CONF = True
 
 qwiic_twist_ns = cg.esphome_ns.namespace("qwiic_twist")
 QwiicTwist     = qwiic_twist_ns.class_("QwiicTwist", i2c.I2CDevice, cg.PollingComponent)
 
+
 TwistEncoderRestoreMode = qwiic_twist_ns.enum("TwistEncoderRestoreMode")
+
+ENCODER_RESTORE_MODES = {
+    "RESTORE_DEFAULT_ZERO": TwistEncoderRestoreMode.TWIST_ENCODER_RESTORE_DEFAULT_ZERO,
+    "ALWAYS_ZERO": TwistEncoderRestoreMode.TWIST_ENCODER_ALWAYS_ZERO,
+}
 
 TwistEncoderSetValueAction = qwiic_twist_ns.class_(
     "TwistEncoderSetValueAction", automation.Action
