@@ -37,9 +37,9 @@ ENCODER_RESTORE_MODES = {
     "ALWAYS_ZERO": TwistEncoderRestoreMode.TWIST_ENCODER_ALWAYS_ZERO,
 }
 
-TwistEncoderSetValueAction = qwiic_twist_ns.class_(
-    "TwistEncoderSetValueAction", automation.Action
-)
+# TwistEncoderSetValueAction = qwiic_twist_ns.class_(
+#     "TwistEncoderSetValueAction", automation.Action
+# )
 TwistEncoderClockwiseTrigger = qwiic_twist_ns.class_(
     "TwistEncoderClockwiseTrigger", automation.Trigger
 )

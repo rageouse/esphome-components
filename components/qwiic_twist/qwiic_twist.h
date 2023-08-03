@@ -93,7 +93,7 @@ class QwiicTwist : public i2c::I2CDevice, public PollingComponent {
 };
 
 
-
+/*
 template<typename... Ts> class TwistEncoderSetValueAction : public Action<Ts...> {
  public:
   TwistEncoderSetValueAction(QwiicTwist *encoder) : encoder_(encoder) {}
@@ -104,6 +104,7 @@ template<typename... Ts> class TwistEncoderSetValueAction : public Action<Ts...>
  protected:
   QwiicTwist *encoder_;
 };
+*/
 
 class TwistEncoderClockwiseTrigger : public Trigger<> {
  public:
