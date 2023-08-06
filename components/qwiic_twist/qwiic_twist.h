@@ -92,19 +92,6 @@ class QwiicTwist : public i2c::I2CDevice, public PollingComponent {
 };
 
 
-/*
-template<typename... Ts> class TwistEncoderSetValueAction : public Action<Ts...> {
- public:
-  TwistEncoderSetValueAction(QwiicTwist *encoder) : encoder_(encoder) {}
-  TEMPLATABLE_VALUE(int, value)
-
-  void play(Ts... x) override { this->encoder_->set_value(this->value_.value(x...)); }
-
- protected:
-  QwiicTwist *encoder_;
-};
-*/
-
 class TwistEncoderClockwiseTrigger : public Trigger<> {
  public:
   explicit TwistEncoderClockwiseTrigger(QwiicTwist *twist) {
