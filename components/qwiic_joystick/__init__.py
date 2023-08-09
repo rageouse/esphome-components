@@ -11,7 +11,7 @@ qwiic_joystick_ns = cg.esphome_ns.namespace("qwiic_joystick")
 QwiicJoystick     = qwiic_joystick_ns.class_("QwiicJoystick", i2c.I2CDevice, cg.PollingComponent)
 
 DEPENDENCIES = ["i2c"]
-AUTO_LOAD = ["sensor"]
+AUTO_LOAD = ["sensor", "binary_sensor"]
 
 CONF_QWIIC_JOYSTICK  = 'qwiic_joystick'
 
